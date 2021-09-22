@@ -272,7 +272,7 @@ const start = async () => {
   bot.telegram.sendMessage(botchat, '\u{1F911} Iniciando trades!');
   await checkInterval();
   setInterval(() => {
-    limiter.schedule(() => trade());
+    limiter.schedule(() => await trade());
   }, intervalMs);
 };
 
