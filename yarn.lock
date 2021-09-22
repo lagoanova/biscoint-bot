@@ -50,10 +50,10 @@
   "resolved" "https://registry.npmjs.org/bignumber.js/-/bignumber.js-9.0.1.tgz"
   "version" "9.0.1"
 
-"biscoint-api-node@^1.2.4":
-  "integrity" "sha512-5PQrP2lbTizQYUiScXEpd6+cQ35Ywr+fJwGcdG6X1ZG9qFe9cb4P30H1OguX0qgMH8CH1o0Tiv/RmkUXQ1ZW4g=="
-  "resolved" "https://registry.npmjs.org/biscoint-api-node/-/biscoint-api-node-1.2.4.tgz"
-  "version" "1.2.4"
+"biscoint-api-node@^1.4.1":
+  "integrity" "sha512-CWgAr4Yvw97DWAyn5cz7apD7ZS5Hcmxm/nefNkGJ14gZWdvH2G8Nf83FFbHIP+sZuZCL5JrlytvBa9NKjxYYlA=="
+  "resolved" "https://registry.npmjs.org/biscoint-api-node/-/biscoint-api-node-1.4.1.tgz"
+  "version" "1.4.1"
   dependencies:
     "axios" "^0.21.1"
     "bignumber.js" "^9.0.1"
