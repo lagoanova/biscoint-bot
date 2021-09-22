@@ -135,11 +135,12 @@ async function trade() {
     });
 
     const profit = percent(buyOffer.efPrice, sellOffer.efPrice);
-    if (differencelogger)
+    if (differencelogger) {
       handleMessage(`Variação de preço: ${profit.toFixed(3)}%`);
       handleMessage(`Test mode: ${test}`);
       handleMessage(`O botStatus é: ${botStatus}`)
       handleMessage(`Intervalo: ${intervalMs}`)
+    }
     if (buyOffer.efPrice < sellOffer.efPrice && !test) {
       handleMessage(`\u{1F911} Sucesso! Lucro: ${profit.toFixed(3)}%`);
       bot.telegram.sendMessage(botchat, `Profit found: ${profit.toFixed(3)}%`, keyboard)
