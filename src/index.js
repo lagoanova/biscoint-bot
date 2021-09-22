@@ -81,7 +81,7 @@ bot.hears('🔛 Test Mode', async (ctx) => {
 
 bot.hears('☸ Configs', (ctx) => {
   ctx.replyWithMarkdown(`
-*Intervalo*: ${intervalMs}ms
+*Intervalo*: ${intervalMs}s
 *Modo teste*: ${test}
 *Saldo*: ${amount}
     `, keyboard)
@@ -136,7 +136,7 @@ async function trade() {
       handleMessage(`Variação de preço: ${profit.toFixed(3)}%`);
       handleMessage(`Multibot: ${multibot}`)
       handleMessage(`O botStatus é: ${botStatus}`)
-      handleMessage(`Intervalo: ${intervalMs}ms`)
+      handleMessage(`Intervalo: ${intervalMs}s`)
       handleMessage(`Test mode: ${test}`);
     }
     if (buyOffer.efPrice < sellOffer.efPrice && !test) {
@@ -257,11 +257,13 @@ const checkInterval = async () => {
   handleMessage(`Offer Rate limits: ${maxRequests} request per ${windowMs}ms.`);
   let minInterval = 2.0 * parseFloat(windowMs) / parseFloat(maxRequests) / 1000.0;
 
-  if (!multibot) {
-    intervalMs = minInterval;
+  if (multibot) {
+    intervalMs = 2.5;
     handleMessage(`Setting interval to ${intervalMs}s`);
-  } else if (intervalMs < minInterval) {
-    handleMessage(`Interval too small (${intervalMs}s). Must be higher than ${minInterval.toFixed(1)}s`);
+  //} else if (intervalMs < minInterval) {
+  //  handleMessage(`Interval too small (${intervalMs}s). Must be higher than ${minInterval.toFixed(1)}s`);
+  } else {
+    intervalMs = minInterval;
   }
 };
 
