@@ -208,7 +208,9 @@ async function forceConfirm(side, oldPrice) {
       handleMessage("Success on retry");
     } else {
       //throw "Error on forceConfirm, price is much distant";
-      bot.telegram.sendMessage(botchat, `Error on forceConfirm, price is much distant`, keyboard)
+      bot.telegram.sendMessage(botchat, `
+      Erro ao Confirmar Ordem, o preço está muito distante.
+      Acesse a corretora e verifique seu saldo!`, keyboard)
     }
   } catch (error) {
     handleError("Error on force confirm", error);
