@@ -66,7 +66,7 @@ bot.hears('☸ Configs', (ctx) => {
 bot.hears('🔍 BTC Price', async (ctx) => {
   let priceBTC = await bc.ticker();
   ctx.replyWithMarkdown(`
-*Preço BTC*: ${priceBTC.last.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}
+*Preço BTC*: ${Number(priceBTC.last).toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}
     `, keyboard)
 }
 );
