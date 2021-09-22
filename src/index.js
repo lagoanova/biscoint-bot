@@ -257,9 +257,8 @@ const checkInterval = async () => {
   handleMessage(`Offer Rate limits: ${maxRequests} request per ${windowMs}ms.`);
   let minInterval = 2.0 * parseFloat(windowMs) / parseFloat(maxRequests) / 1000.0;
 
-  if (!intervalMs) {
+  if (!multibot) {
     intervalMs = minInterval;
-    multibot = false;
     handleMessage(`Setting interval to ${intervalMs}s`);
   } else if (intervalMs < minInterval) {
     handleMessage(`Interval too small (${intervalMs}s). Must be higher than ${minInterval.toFixed(1)}s`);
