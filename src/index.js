@@ -21,13 +21,6 @@ const bc = new Biscoint({
 let robo = new Object()
 robo.id = botId
 let botStatus = false
-if (multibot) {
-  const res = await axios.post(`http://${host}:${port}/status`, robo)
-  botStatus = res.data
-  intervalMs = 5500
-} else {
-  botStatus = true
-}
 
 // Telegram
 const bot = new Telegraf(token)
@@ -114,7 +107,6 @@ const limiter = new Bottleneck({
 });
 
 handleMessage("\u{1F911} Iniciando Trades!");
-bot.telegram.sendMessage(botchat, '\u{1F911} Iniciando Trades!', keyboard)
 
 let tradeCycleCount = 0;
 
@@ -207,10 +199,6 @@ async function trade() {
 }
 }
 
-setInterval(() => {
-  limiter.schedule(() => trade());
-}, intervalMs);
-
 async function forceConfirm(side, oldPrice) {
   try {
     const offer = await bc.offer({
@@ -255,4 +243,25 @@ const checkBalances = async () => {
   handleMessage(`Balances:  BRL: ${BRL} - BTC: ${BTC} `);
 };
 
+const startTrading = async () => {
+  handleMessage('Starting trades');
+  bot.telegram.sendMessage(botchat, '\u{1F911} Iniciando trades!');
+  if (multibot) {
+    const res = await axios.post(`http://${host}:${port}/status`, robo)
+    botStatus = res.data
+    intervalMs = 5500
+  } else {
+    botStatus = true
+  }
+};
+
+async function start() {
+  await startTrading();
+  setInterval(() => {
+    limiter.schedule(() => trade());
+  }, intervalMs);
+}
+
 bot.launch()
+
+start().catch(e => handleMessage(JSON.stringify(e), 'error'));
