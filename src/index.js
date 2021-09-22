@@ -63,6 +63,14 @@ bot.hears('☸ Configs', (ctx) => {
 }
 );
 
+bot.hears('🔍 BTC Price', (ctx) => {
+  let priceBTC = await bc.ticker();
+  ctx.replyWithMarkdown(`
+*Preço BTC*: ${priceBTC.last}
+    `, keyboard)
+}
+);
+
 // Telegram End
 
 const limiter = new Bottleneck({
