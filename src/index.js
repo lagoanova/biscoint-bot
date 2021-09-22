@@ -66,7 +66,19 @@ bot.hears('☸ Configs', (ctx) => {
 bot.hears('🔍 BTC Price', async (ctx) => {
   let priceBTC = await bc.ticker();
   ctx.replyWithMarkdown(`
-*Preço BTC*: ${priceBTC.last}
+*Preço BTC*: ${priceBTC.last.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}
+    `, keyboard)
+}
+);
+
+bot.hears('📖 Help', async (ctx) => {
+  ctx.replyWithMarkdown(
+`*Comandos disponíveis:* 
+    ============  
+*\u{1F51B} Iniciar Robô:* Incia as operações. É o padrão no primeiro acesso.\n
+*\u{1F6D1} Parar Robô:* Para as operações. Demais comandos ficam disponíveis.\n
+*\u{1F9FE} Extrato:* Extrato com o saldo, valor de operação, lucro, etc.
+    ============
     `, keyboard)
 }
 );
