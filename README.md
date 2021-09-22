@@ -2,7 +2,19 @@
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/itxtoledo/biscoint-bot)
 
 # Disclaimer
-Nenhum proprietário ou contribuidor é responsável por qualquer coisa feita com este bot. Você o usa por sua própria conta e risco. Não há garantias ou garantias expressas ou implícitas. Você assume toda a responsabilidade e obrigação.
+Nenhum proprietário ou contribuidor é responsável por qualquer coisa feita com este bot. Você o usa por sua própria conta e risco. Não há garantias expressas ou implícitas. Você assume toda a responsabilidade e obrigação.
+
+AVISO LEGAL:
+
+Todas as estratégias e investimentos envolvem risco de perda. Você nunca deve negociar com dinheiro que não pode ou tem medo de perder.
+
+Use por sua conta e risco! 
+
+VOCÊ É RESPONSÁVEL POR QUAISQUER PERDAS QUE POSSAM SER RESULTANTES DO USO DO BOT!
+
+Se você não entende como o bot funciona, não deve usá-lo. Você é sempre bem-vindo para pedir ajuda ou obter mais informações sobre como funciona exatamente.
+
+Não é recomendação de investimento!
 
 # Telegram
 1. Abra o https://t.me/BotFather
