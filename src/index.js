@@ -29,19 +29,19 @@ let balances
 //   ], { columns: 2 })
 
 const keyboard = Markup.keyboard([
-  ['🧾🔍 Balance', '😎 Popular'], // Row1 with 2 buttons
+  ['🧾 Balance', '🔍 BTC Price'], // Row1 with 2 buttons
   ['☸ Configs', '📖 Help'], // Row2 with 2 buttons
-  ['📢 Ads', '⭐️ Rate us', '₿'] // Row3 with 3 buttons
+  ['🔛 Test Mode', '📢⭐️ Rate us', '₿'] // Row3 with 3 buttons
 ])
-.oneTime()
-.resize()
+  .oneTime()
+  .resize()
 
-bot.hears('balance', async (ctx) => {
+bot.hears('🧾 Balance', async (ctx) => {
   checkBalances();
 }
 );
 
-bot.action('test', async (ctx) => {
+bot.hears('🔛 Test Mode', async (ctx) => {
   if (test === false) {
     test = true
     ctx.reply('\u{1F6D1} Modo test ativado!', keyboard);
@@ -54,7 +54,7 @@ bot.action('test', async (ctx) => {
 }
 );
 
-bot.hears('configs', (ctx) => {
+bot.hears('☸ Configs', (ctx) => {
   ctx.replyWithMarkdown(`
 *intervalMs*: ${intervalMs}
 *test*: ${test}
