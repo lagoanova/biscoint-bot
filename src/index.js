@@ -121,93 +121,93 @@ async function trade() {
   }
 
   if (botStatus) {
-  try {
-    const sellOffer = await bc.offer({
-      amount,
-      isQuote: false,
-      op: "sell",
-    });
+    try {
+      const sellOffer = await bc.offer({
+        amount,
+        isQuote: false,
+        op: "sell",
+      });
 
-    const buyOffer = await bc.offer({
-      amount,
-      isQuote: false,
-      op: "buy",
-    });
+      const buyOffer = await bc.offer({
+        amount,
+        isQuote: false,
+        op: "buy",
+      });
 
-    const profit = percent(buyOffer.efPrice, sellOffer.efPrice);
-    if (differencelogger) {
-      handleMessage(`Variação de preço: ${profit.toFixed(3)}%`);
-      handleMessage(`O botStatus é: ${botStatus}`)
-      handleMessage(`Intervalo: ${intervalMs}ms`)
-      handleMessage(`Test mode: ${test}`);
-    }
-    if (buyOffer.efPrice < sellOffer.efPrice && !test) {
-      handleMessage(`\u{1F911} Sucesso! Lucro: ${profit.toFixed(3)}%`);
-      bot.telegram.sendMessage(botchat, `Profit found: ${profit.toFixed(3)}%`, keyboard)
-      if (initialSell) {
-        /* initial sell */
-        try {
-          await bc.confirmOffer({ offerId: sellOffer.offerId });
-          handleMessage("Success on sell");
-          try {
-            await bc.confirmOffer({
-              offerId: buyOffer.offerId,
-            });
-            handleMessage("Success on buy");
-            tradeCycleCount += 1;
-            handleMessage(
-              `Success, profit: + ${profit.toFixed(
-                3
-              )}%, cycles: ${tradeCycleCount}`
-            );
-          } catch (error) {
-            handleError("Error on buy, retrying", error);
-            await forceConfirm("buy", sellOffer.efPrice);
-          }
-        } catch (error) {
-          handleError("Error on sell", error);
-          bot.telegram.sendMessage(botchat, `Error on sell: ${error}`, keyboard)
-          if (error.error === "Insufficient funds") {
-            initialSell = !initialSell;
-            handleMessage("Switched to first buy");
-          }
-        }
-      } else {
-        /* initial buy */
-        try {
-          await bc.confirmOffer({ offerId: buyOffer.offerId });
-          handleMessage("Success on buy");
+      const profit = percent(buyOffer.efPrice, sellOffer.efPrice);
+      if (differencelogger) {
+        handleMessage(`Variação de preço: ${profit.toFixed(3)}%`);
+        handleMessage(`O botStatus é: ${botStatus}`)
+        handleMessage(`Intervalo: ${intervalMs}ms`)
+        handleMessage(`Test mode: ${test}`);
+      }
+      if (buyOffer.efPrice < sellOffer.efPrice && !test) {
+        handleMessage(`\u{1F911} Sucesso! Lucro: ${profit.toFixed(3)}%`);
+        bot.telegram.sendMessage(botchat, `Profit found: ${profit.toFixed(3)}%`, keyboard)
+        if (initialSell) {
+          /* initial sell */
           try {
             await bc.confirmOffer({ offerId: sellOffer.offerId });
             handleMessage("Success on sell");
-            tradeCycleCount += 1;
-            handleMessage(
-              `Success, profit: + ${profit.toFixed(
-                3
-              )}%, cycles: ${tradeCycleCount}`
-            );
+            try {
+              await bc.confirmOffer({
+                offerId: buyOffer.offerId,
+              });
+              handleMessage("Success on buy");
+              tradeCycleCount += 1;
+              handleMessage(
+                `Success, profit: + ${profit.toFixed(
+                  3
+                )}%, cycles: ${tradeCycleCount}`
+              );
+            } catch (error) {
+              handleError("Error on buy, retrying", error);
+              await forceConfirm("buy", sellOffer.efPrice);
+            }
           } catch (error) {
-            handleError("Error on sell, retrying", error);
-            await forceConfirm("sell", buyOffer.efPrice);
+            handleError("Error on sell", error);
+            bot.telegram.sendMessage(botchat, `Error on sell: ${error}`, keyboard)
+            if (error.error === "Insufficient funds") {
+              initialSell = !initialSell;
+              handleMessage("Switched to first buy");
+            }
           }
-        } catch (error) {
-          handleError("Error on buy", error);
-          bot.telegram.sendMessage(botchat, `Error on buy: ${error}`, keyboard)
-          if (error.error === "Insufficient funds") {
-            initialSell = !initialSell;
-            handleMessage("Switched to first sell");
+        } else {
+          /* initial buy */
+          try {
+            await bc.confirmOffer({ offerId: buyOffer.offerId });
+            handleMessage("Success on buy");
+            try {
+              await bc.confirmOffer({ offerId: sellOffer.offerId });
+              handleMessage("Success on sell");
+              tradeCycleCount += 1;
+              handleMessage(
+                `Success, profit: + ${profit.toFixed(
+                  3
+                )}%, cycles: ${tradeCycleCount}`
+              );
+            } catch (error) {
+              handleError("Error on sell, retrying", error);
+              await forceConfirm("sell", buyOffer.efPrice);
+            }
+          } catch (error) {
+            handleError("Error on buy", error);
+            bot.telegram.sendMessage(botchat, `Error on buy: ${error}`, keyboard)
+            if (error.error === "Insufficient funds") {
+              initialSell = !initialSell;
+              handleMessage("Switched to first sell");
+            }
           }
         }
       }
+    } catch (error) {
+      handleError("Error on get offer", error);
     }
-  } catch (error) {
-    handleError("Error on get offer", error);
+  } else {
+    handleMessage('Aguardando...');
+    handleMessage(`O botStatus é: ${botStatus}`)
+    handleMessage(`Intervalo: ${intervalMs}ms`)
   }
-} else {
-  handleMessage('Aguardando...');
-  handleMessage(`O botStatus é: ${botStatus}`)
-  handleMessage(`Intervalo: ${intervalMs}ms`)
-}
 }
 
 setInterval(() => {
@@ -263,12 +263,12 @@ const checkInterval = async () => {
   const { endpoints } = await bc.meta();
   const { windowMs, maxRequests } = endpoints.offer.post.rateLimit;
   handleMessage(`Offer Rate limits: ${maxRequests} request per ${windowMs}ms.`);
-  let minInterval = 2.0 * parseFloat(windowMs) / parseFloat(maxRequests) / 1000.0;
+  let minInterval = 2.0 * parseFloat(windowMs) / parseFloat(maxRequests);
 
   if (multibot) {
     intervalMs = 2500;
     handleMessage(`Setting interval to ${intervalMs}s`);
-  //} else if (intervalMs < minInterval) {
+    //} else if (intervalMs < minInterval) {
   } else {
     //handleMessage(`Interval too small (${intervalMs}s). Must be higher than ${minInterval.toFixed(1)}s`, 'error', false);
     handleMessage(`Interval too small (${intervalMs}s). Must be higher than ${minInterval.toFixed(1)}s`);
