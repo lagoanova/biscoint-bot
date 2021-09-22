@@ -69,17 +69,17 @@
     },
     "host": {
       "description": "Servidor dos bots",
-      "required": false,
+      "required": true,
       "valor": "localhost"
     },
     "port": {
       "description": "Porta usada pelos bots",
-      "required": false,
+      "required": true,
       "value": "80"
     },
     "multibot": {
       "description": "Usar mais de um bot",
-      "required": false,
+      "required": true,
       "value": "true"
     }
   }
