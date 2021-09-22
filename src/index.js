@@ -9,7 +9,7 @@ import axios from 'axios';
 
 let {
   apiKey, apiSecret, amount, initialSell, intervalMs, test,
-  differencelogger, token, botchat, botId, host, port, multibot
+  differencelogger, token, botchat, botId, host, porta, multibot
 } = require("./env")
 
 const bc = new Biscoint({
@@ -113,7 +113,7 @@ let tradeCycleCount = 0;
 
 async function trade() {
   if (multibot) {
-    const res = await axios.post(`http://${host}:${port}/status`, robo)
+    const res = await axios.post(`http://${host}:${porta}/status`, robo)
     botStatus = res.data
   } else {
     botStatus = true
