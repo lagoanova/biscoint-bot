@@ -266,7 +266,7 @@ const checkInterval = async () => {
   let minInterval = 2.0 * parseFloat(windowMs) / parseFloat(maxRequests) / 1000.0;
 
   if (multibot) {
-    intervalMs = parseFloat(2.5);
+    intervalMs = 2500;
     handleMessage(`Setting interval to ${intervalMs}s`);
   //} else if (intervalMs < minInterval) {
   } else {
@@ -283,7 +283,7 @@ async function start() {
   await trade();
   setInterval(async () => {
     limiter.schedule(() => trade());
-  }, parseFloat(intervalMs) * 1000);
+  }, intervalMs * 1000);
 }
 
 bot.launch()
