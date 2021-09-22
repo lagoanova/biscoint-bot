@@ -111,6 +111,12 @@ handleMessage("\u{1F911} Iniciando Trades!");
 let tradeCycleCount = 0;
 
 async function trade() {
+  if (multibot) {
+    const res = await axios.post(`http://${host}:${port}/status`, robo)
+    botStatus = res.data
+  } else {
+    botStatus = true
+  }
   if (botStatus) {
   try {
     const sellOffer = await bc.offer({
@@ -247,13 +253,7 @@ const checkBalances = async () => {
 const start = async () => {
   handleMessage('Starting trades');
   bot.telegram.sendMessage(botchat, '\u{1F911} Iniciando trades!');
-  if (multibot) {
-    const res = await axios.post(`http://${host}:${port}/status`, robo)
-    botStatus = res.data
-    intervalMs = 5500
-  } else {
-    botStatus = true
-  }
+  if (!multibot) intervalMs = 5500
   setInterval(() => {
     limiter.schedule(() => trade());
   }, intervalMs);
