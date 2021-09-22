@@ -203,6 +203,8 @@ async function trade() {
   }
 } else {
   handleMessage('Aguardando...');
+  handleMessage(`O botStatus é: ${botStatus}`)
+  handleMessage(`Intervalo: ${intervalMs}s`)
 }
 }
 
