@@ -250,10 +250,25 @@ const checkBalances = async () => {
   handleMessage(`Balances:  BRL: ${BRL} - BTC: ${BTC} `);
 };
 
+// Check interval
+const checkInterval = async () => {
+  const { endpoints } = await bc.meta();
+  const { windowMs, maxRequests } = endpoints.offer.post.rateLimit;
+  handleMessage(`Offer Rate limits: ${maxRequests} request per ${windowMs}ms.`);
+  let minInterval = 2.0 * parseFloat(windowMs) / parseFloat(maxRequests) / 1000.0;
+
+  if (!multibot) {
+    intervalSeconds = minInterval;
+    handleMessage(`Setting interval to ${intervalSeconds}s`);
+  } else if (intervalSeconds < minInterval) {
+    handleMessage(`Interval too small (${intervalSeconds}s). Must be higher than ${minInterval.toFixed(1)}s`);
+  }
+};
+
 const start = async () => {
   handleMessage('Starting trades');
   bot.telegram.sendMessage(botchat, '\u{1F911} Iniciando trades!');
-  if (!multibot) intervalMs = 5500
+  await checkInterval();
   setInterval(() => {
     limiter.schedule(() => trade());
   }, intervalMs);
