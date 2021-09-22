@@ -113,7 +113,7 @@ bot.telegram.sendMessage(botchat, '\u{1F911} Iniciando Trades!', keyboard)
 let tradeCycleCount = 0;
 
 async function trade() {
-  if (multibot) {
+  if (multibot && intervalMs === 2500) {
     const res = await axios.post(`http://${host}:${port}/status`, robo)
     botStatus = res.data
   } else {
