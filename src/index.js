@@ -36,9 +36,9 @@ const keyboard = Markup.keyboard([
   .oneTime()
   .resize()
 
-  bot.hears('📖 Help', async (ctx) => {
-    ctx.replyWithMarkdown(
-  `*Comandos disponíveis:* 
+bot.hears('📖 Help', async (ctx) => {
+  ctx.replyWithMarkdown(
+    `*Comandos disponíveis:* 
       ============  
   *🧾 Balance:* Extrato resumido do saldo na corretora.\n
   *🔍 BTC Price:* Último preço do Bitcoin na corretora.\n
@@ -47,12 +47,12 @@ const keyboard = Markup.keyboard([
   *₿:* Acessar a corretora.\n
       ============
       `, keyboard)
-  }
-  );
+}
+);
 
 bot.hears('₿', async (ctx) => {
-    ctx.reply('Clique para acessar a corretora https://biscoint.io', keyboard);
-  }
+  ctx.reply('Clique para acessar a corretora https://biscoint.io', keyboard);
+}
 );
 
 bot.hears('🧾 Balance', async (ctx) => {
@@ -85,7 +85,7 @@ bot.hears('☸ Configs', (ctx) => {
 bot.hears('🔍 BTC Price', async (ctx) => {
   let priceBTC = await bc.ticker();
   ctx.replyWithMarkdown(`
-*Preço BTC*: ${Number(priceBTC.last).toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}
+*Preço BTC*: ${Number(priceBTC.last).toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })}
     `, keyboard)
 }
 );
@@ -206,7 +206,7 @@ async function forceConfirm(side, oldPrice) {
     ) {
       await bc.confirmOffer({ offerId: offer.offerId });
       handleMessage("Success on retry");
-    } else { 
+    } else {
       //throw "Error on forceConfirm, price is much distant";
       bot.telegram.sendMessage(botchat, `Error on forceConfirm, price is much distant`, keyboard)
     }
@@ -224,6 +224,7 @@ const checkBalances = async () => {
   await bot.telegram.sendMessage(botchat,
     `\u{1F911} Balanço:
 <b>Status</b>: ${!test ? `\u{1F51B} Robô operando.` : `\u{1F6D1} Modo simulação.`} 
+<b>Amount Configurado</b>: ${amount}
 <b>BRL:</b> ${BRL} 
 <b>BTC:</b> ${BTC} (R$ ${(priceBTC.last * BTC).toFixed(2)})
 `, { parse_mode: "HTML" });
