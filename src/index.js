@@ -29,14 +29,14 @@ let balances
 //   ], { columns: 2 })
 
 const keyboard = Markup.keyboard([
-  ['🔍 Search', '😎 Popular'], // Row1 with 2 buttons
-  ['☸ Setting', '📞 Feedback'], // Row2 with 2 buttons
-  ['📢 Ads', '⭐️ Rate us', '👥 Share'] // Row3 with 3 buttons
+  ['🧾🔍 Balance', '😎 Popular'], // Row1 with 2 buttons
+  ['☸ Configs', '📖 Help'], // Row2 with 2 buttons
+  ['📢 Ads', '⭐️ Rate us', '₿'] // Row3 with 3 buttons
 ])
 .oneTime()
 .resize()
 
-bot.action('balance', async (ctx) => {
+bot.hears('balance', async (ctx) => {
   checkBalances();
 }
 );
@@ -54,7 +54,7 @@ bot.action('test', async (ctx) => {
 }
 );
 
-bot.action('configs', (ctx) => {
+bot.hears('configs', (ctx) => {
   ctx.replyWithMarkdown(`
 *intervalMs*: ${intervalMs}
 *test*: ${test}
