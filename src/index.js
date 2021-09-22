@@ -50,6 +50,11 @@ const keyboard = Markup.keyboard([
   );
 
 bot.hears('🧾 Balance', async (ctx) => {
+    ctx.reply('Clique para acessar a corretora https://biscoint.io');
+  }
+);
+
+bot.hears('🧾 Balance', async (ctx) => {
   checkBalances();
 }
 );
