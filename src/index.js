@@ -206,7 +206,10 @@ async function forceConfirm(side, oldPrice) {
     ) {
       await bc.confirmOffer({ offerId: offer.offerId });
       handleMessage("Success on retry");
-    } else throw "Error on forceConfirm, price is much distant";
+    } else { 
+      //throw "Error on forceConfirm, price is much distant";
+      bot.telegram.sendMessage(botchat, `Error on forceConfirm, price is much distant`, keyboard)
+    }
   } catch (error) {
     handleError("Error on force confirm", error);
     bot.telegram.sendMessage(botchat, `Error on force confirm: ${error}`, keyboard)
