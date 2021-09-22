@@ -20,7 +20,7 @@ const bc = new Biscoint({
 // multibot
 let robo = new Object()
 robo.id = botId
-let botStatus = false
+let botStatus
 
 // Telegram
 const bot = new Telegraf(token)
