@@ -31,7 +31,7 @@ let balances
 const keyboard = Markup.keyboard([
   ['🧾 Balance', '🔍 BTC Price'], // Row1 with 2 buttons
   ['☸ Configs', '📖 Help'], // Row2 with 2 buttons
-  ['🔛 Test Mode', '📢⭐️ Rate us', '📢 ₿'] // Row3 with 3 buttons
+  ['🔛 Test Mode', '📢 ₿'] // Row3 with 2 buttons
 ])
   .oneTime()
   .resize()
