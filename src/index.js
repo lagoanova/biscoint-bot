@@ -21,6 +21,7 @@ const bc = new Biscoint({
 let robo = new Object()
 robo.id = botId
 let botStatus = false
+if (multibot) intervalMs = 5500
 
 // Telegram
 const bot = new Telegraf(token)
@@ -117,7 +118,6 @@ async function trade() {
     botStatus = res.data
   } else {
     botStatus = true
-    intervalMs = 5500
   }
 
   if (botStatus) {
@@ -139,7 +139,7 @@ async function trade() {
       handleMessage(`Variação de preço: ${profit.toFixed(3)}%`);
       handleMessage(`Test mode: ${test}`);
       handleMessage(`O botStatus é: ${botStatus}`)
-      handleMessage(`Intervalo: ${intervalMs}`)
+      handleMessage(`Intervalo: ${intervalMs}ms`)
     }
     if (buyOffer.efPrice < sellOffer.efPrice && !test) {
       handleMessage(`\u{1F911} Sucesso! Lucro: ${profit.toFixed(3)}%`);
