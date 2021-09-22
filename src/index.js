@@ -63,7 +63,7 @@ bot.hears('☸ Configs', (ctx) => {
 }
 );
 
-bot.hears('🔍 BTC Price', (ctx) => {
+bot.hears('🔍 BTC Price', async (ctx) => {
   let priceBTC = await bc.ticker();
   ctx.replyWithMarkdown(`
 *Preço BTC*: ${priceBTC.last}
