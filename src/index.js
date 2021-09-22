@@ -188,8 +188,8 @@ const checkBalances = async () => {
 <b>Status</b>: ${!test ? `\u{1F51B} Robô operando.` : `\u{1F6D1} Modo simulação.`} 
 <b>BRL:</b> ${BRL} 
 <b>BTC:</b> ${BTC} (R$ ${(priceBTC.last * BTC).toFixed(2)})
-`, { parse_mode: "HTML" });
-  await bot.telegram.sendMessage(botchat, "Balance!", keyboard)
+`, { parse_mode: "HTML", keyboard });
+  //await bot.telegram.sendMessage(botchat, "Balance!", keyboard)
 
   handleMessage(`Balances:  BRL: ${BRL} - BTC: ${BTC} `);
 };
