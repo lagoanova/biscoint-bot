@@ -263,10 +263,10 @@ const checkInterval = async () => {
   const { endpoints } = await bc.meta();
   const { windowMs, maxRequests } = endpoints.offer.post.rateLimit;
   handleMessage(`Offer Rate limits: ${maxRequests} request per ${windowMs}ms.`);
-  let minInterval = 2.0 * parseFloat(windowMs) / parseFloat(maxRequests);
+  let minInterval = 2.0 * parseFloat(windowMs) / parseFloat(maxRequests) / 1000.0;
 
   if (multibot) {
-    intervalMs = 2500;
+    intervalMs = 2.5;
     handleMessage(`Setting interval to ${intervalMs}s`);
   //} else if (intervalMs < minInterval) {
   } else {
