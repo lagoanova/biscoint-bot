@@ -31,7 +31,7 @@ let balances
 const keyboard = Markup.keyboard([
   ['🧾 Balance', '🔍 BTC Price'], // Row1 with 2 buttons
   ['☸ Configs', '📖 Help'], // Row2 with 2 buttons
-  ['🔛 Test Mode', '📢⭐️ Rate us', '₿'] // Row3 with 3 buttons
+  ['🔛 Test Mode', '📢⭐️ Rate us', '📢 ₿'] // Row3 with 3 buttons
 ])
   .oneTime()
   .resize()
@@ -44,12 +44,13 @@ const keyboard = Markup.keyboard([
   *🔍 BTC Price:* Último preço do Bitcoin na corretora.\n
   *☸ Configs:* Configurações do Bot.\n
   *🔛 Test Mode:* Ativar/Desativar modo simulação.\n
+  *📢 ₿:* Acessar a corretora.\n
       ============
       `, keyboard)
   }
   );
 
-bot.hears('🧾 Balance', async (ctx) => {
+bot.hears('📢 ₿', async (ctx) => {
     ctx.reply('Clique para acessar a corretora https://biscoint.io', keyboard);
   }
 );
