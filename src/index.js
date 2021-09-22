@@ -111,7 +111,7 @@ handleMessage("\u{1F911} Iniciando Trades!");
 let tradeCycleCount = 0;
 
 async function trade() {
-  if (multibot) {
+  if (multibot && !minInterval) {
     const res = await axios.post(`http://${host}:${port}/status`, robo)
     botStatus = res.data
   } else {
