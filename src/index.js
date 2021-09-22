@@ -65,7 +65,7 @@ const limiter = new Bottleneck({
   maxConcurrent: 1,
 });
 
-handleMessage("Successfully started");
+handleMessage("\u{1F911} Iniciando Trades!");
 bot.telegram.sendMessage(botchat, '\u{1F911} Iniciando Trades!', keyboard)
 
 let tradeCycleCount = 0;
