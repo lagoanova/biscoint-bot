@@ -1,14 +1,62 @@
 import Biscoint from "biscoint-api-node";
 import Bottleneck from "bottleneck";
 import { handleMessage, handleError, percent } from "./utils";
-import config from "./config.js";
+//import config from "./config.js";
+import { Telegraf, Markup } from 'telegraf';
 
-let { amount, initialSell, intervalMs, test, differencelogger } = config;
+//let { amount, initialSell, intervalMs, test, differencelogger } = config;
+
+let {
+  apiKey, apiSecret, amount, initialSell, intervalMs, test,
+  differencelogger, token, botchat
+} = require("./env")
 
 const bc = new Biscoint({
-  apiKey: config.key,
-  apiSecret: config.secret,
+  apiKey: apiKey,
+  apiSecret: apiSecret,
 });
+
+// Telegram
+const bot = new Telegraf(token)
+let balances
+
+const keyboard = Markup.inlineKeyboard(
+  [
+    Markup.button.callback('\u{1F9FE} Balance', 'balance'),
+    Markup.button.callback('\u{1F9FE} Configs', 'configs'),
+    Markup.button.callback('\u{1F51B} Test Mode', 'test'),
+    Markup.button.url('₿', 'https://www.biscoint.io')
+  ], { columns: 2 })
+
+bot.action('balance', async (ctx) => {
+  checkBalances();
+}
+);
+
+bot.action('test', async (ctx) => {
+  if (test === false) {
+    test = true
+    ctx.reply('\u{1F6D1} Modo test ativado!', keyboard);
+    checkBalances();
+  } else {
+    test = false
+    ctx.replyWithMarkdown(`\u{1F911} Modo test desativado!`, keyboard);
+    checkBalances();
+  }
+}
+);
+
+bot.action('configs', (ctx) => {
+  ctx.replyWithMarkdown(`
+*intervalMs*: ${intervalMs}
+*test*: ${test}
+*amount*: ${amount}
+*differencelogger*: ${differencelogger}
+    `, keyboard)
+}
+);
+
+// Telegram End
 
 const limiter = new Bottleneck({
   reservoir: 30,
@@ -18,6 +66,7 @@ const limiter = new Bottleneck({
 });
 
 handleMessage("Successfully started");
+bot.telegram.sendMessage(botchat, 'Successfully started', keyboard)
 
 let tradeCycleCount = 0;
 
@@ -38,8 +87,10 @@ async function trade() {
     const profit = percent(buyOffer.efPrice, sellOffer.efPrice);
     if (differencelogger)
       handleMessage(`Difference now: ${profit.toFixed(3)}%`);
+    handleMessage(`Test mode: ${test}`);
     if (buyOffer.efPrice < sellOffer.efPrice && !test) {
       handleMessage(`Profit found: ${profit.toFixed(3)}%`);
+      bot.telegram.sendMessage(botchat, `Profit found: ${profit.toFixed(3)}%`, keyboard)
       if (initialSell) {
         /* initial sell */
         try {
@@ -62,6 +113,7 @@ async function trade() {
           }
         } catch (error) {
           handleError("Error on sell", error);
+          bot.telegram.sendMessage(botchat, `Error on sell: ${error}`, keyboard)
           if (error.error === "Insufficient funds") {
             initialSell = !initialSell;
             handleMessage("Switched to first buy");
@@ -87,6 +139,7 @@ async function trade() {
           }
         } catch (error) {
           handleError("Error on buy", error);
+          bot.telegram.sendMessage(botchat, `Error on buy: ${error}`, keyboard)
           if (error.error === "Insufficient funds") {
             initialSell = !initialSell;
             handleMessage("Switched to first sell");
@@ -121,5 +174,24 @@ async function forceConfirm(side, oldPrice) {
     } else throw "Error on forceConfirm, price is much distant";
   } catch (error) {
     handleError("Error on force confirm", error);
+    bot.telegram.sendMessage(botchat, `Error on force confirm: ${error}`, keyboard)
   }
 }
+
+const checkBalances = async () => {
+  balances = await bc.balance();
+  const { BRL, BTC } = balances;
+  let priceBTC = await bc.ticker();
+
+  await bot.telegram.sendMessage(botchat,
+    `\u{1F911} Balanço:
+<b>Status</b>: ${!test ? `\u{1F51B} Robô operando.` : `\u{1F6D1} Modo simulação.`} 
+<b>BRL:</b> ${BRL} 
+<b>BTC:</b> ${BTC} (R$ ${(priceBTC.last * BTC).toFixed(2)})
+`, { parse_mode: "HTML" });
+  await bot.telegram.sendMessage(botchat, "Balance!", keyboard)
+
+  handleMessage(`Balances:  BRL: ${BRL} - BTC: ${BTC} `);
+};
+
+bot.launch()
