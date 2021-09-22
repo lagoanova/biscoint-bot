@@ -244,7 +244,7 @@ const checkBalances = async () => {
   handleMessage(`Balances:  BRL: ${BRL} - BTC: ${BTC} `);
 };
 
-const startTrading = async () => {
+const start = async () => {
   handleMessage('Starting trades');
   bot.telegram.sendMessage(botchat, '\u{1F911} Iniciando trades!');
   if (multibot) {
@@ -254,14 +254,10 @@ const startTrading = async () => {
   } else {
     botStatus = true
   }
-};
-
-async function start() {
-  await startTrading();
   setInterval(() => {
     limiter.schedule(() => trade());
   }, intervalMs);
-}
+};
 
 bot.launch()
 
