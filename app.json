@@ -42,7 +42,7 @@
     "intervalMs": {
       "description": "Intervalo em milissegundo.",
       "required": true,
-      "value": "5500"
+      "value": "2500"
     },
     "test": {
       "description": "Ativar modo simulação",
