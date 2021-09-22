@@ -21,7 +21,7 @@ const bc = new Biscoint({
 let robo = new Object()
 robo.id = botId
 let botStatus
-if (!multibot) intervalMs = 5500
+//if (!multibot) intervalMs = 5500
 
 // Telegram
 const bot = new Telegraf(token)
