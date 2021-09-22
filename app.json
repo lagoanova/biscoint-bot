@@ -42,7 +42,7 @@
     "intervalMs": {
       "description": "Intervalo.",
       "required": true,
-      "value": "2.5"
+      "value": "2500"
     },
     "test": {
       "description": "Ativar modo simulação",
