@@ -72,7 +72,7 @@
       "required": true,
       "valor": "localhost"
     },
-    "porta": {
+    "port": {
       "description": "Porta usada pelos bots",
       "required": true,
       "value": "80"

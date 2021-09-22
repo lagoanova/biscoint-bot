@@ -15,7 +15,7 @@ module.exports = envalid.cleanEnv(process.env, {
     botchat: envalid.str({ default: "" }),
     botId: envalid.str({ default: "bot_1" }),
     host: envalid.str({ default: "localhost" }),
-    porta: envalid.num({
+    port: envalid.num({
         default: 80,
         desc: "The port to start the server on",
     }),
