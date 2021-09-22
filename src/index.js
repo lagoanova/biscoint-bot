@@ -36,6 +36,19 @@ const keyboard = Markup.keyboard([
   .oneTime()
   .resize()
 
+  bot.hears('📖 Help', async (ctx) => {
+    ctx.replyWithMarkdown(
+  `*Comandos disponíveis:* 
+      ============  
+  *🧾 Balance:* Extrato resumido do saldo na corretora.\n
+  *🔍 BTC Price:* Último preço do Bitcoin na corretora.\n
+  *☸ Configs:* Configurações do Bot.\n
+  *🔛 Test Mode:* Ativar/Desativar modo simulação.\n
+      ============
+      `, keyboard)
+  }
+  );
+
 bot.hears('🧾 Balance', async (ctx) => {
   checkBalances();
 }
@@ -71,17 +84,6 @@ bot.hears('🔍 BTC Price', async (ctx) => {
 }
 );
 
-bot.hears('📖 Help', async (ctx) => {
-  ctx.replyWithMarkdown(
-`*Comandos disponíveis:* 
-    ============  
-*\u{1F51B} Iniciar Robô:* Incia as operações. É o padrão no primeiro acesso.\n
-*\u{1F6D1} Parar Robô:* Para as operações. Demais comandos ficam disponíveis.\n
-*\u{1F9FE} Extrato:* Extrato com o saldo, valor de operação, lucro, etc.
-    ============
-    `, keyboard)
-}
-);
 
 // Telegram End
 
@@ -216,7 +218,7 @@ const checkBalances = async () => {
 <b>BRL:</b> ${BRL} 
 <b>BTC:</b> ${BTC} (R$ ${(priceBTC.last * BTC).toFixed(2)})
 `, { parse_mode: "HTML" });
-  //await bot.telegram.sendMessage(botchat, "Balance!", keyboard)
+  await bot.telegram.sendMessage(botchat, "Extrato resumido. Para maiores detalhes, acesse a corretora Biscoint!", keyboard)
 
   handleMessage(`Balances:  BRL: ${BRL} - BTC: ${BTC} `);
 };
