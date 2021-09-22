@@ -258,10 +258,10 @@ const checkInterval = async () => {
   let minInterval = 2.0 * parseFloat(windowMs) / parseFloat(maxRequests) / 1000.0;
 
   if (!multibot) {
-    intervalSeconds = minInterval;
-    handleMessage(`Setting interval to ${intervalSeconds}s`);
-  } else if (intervalSeconds < minInterval) {
-    handleMessage(`Interval too small (${intervalSeconds}s). Must be higher than ${minInterval.toFixed(1)}s`);
+    intervalMs = minInterval;
+    handleMessage(`Setting interval to ${intervalMs}s`);
+  } else if (intervalMs < minInterval) {
+    handleMessage(`Interval too small (${intervalMs}s). Must be higher than ${minInterval.toFixed(1)}s`);
   }
 };
 
