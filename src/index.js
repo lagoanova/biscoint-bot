@@ -20,13 +20,21 @@ const bc = new Biscoint({
 const bot = new Telegraf(token)
 let balances
 
-const keyboard = Markup.inlineKeyboard(
-  [
-    Markup.button.callback('\u{1F9FE} Balance', 'balance'),
-    Markup.button.callback('\u{1F9FE} Configs', 'configs'),
-    Markup.button.callback('\u{1F51B} Test Mode', 'test'),
-    Markup.button.url('₿', 'https://www.biscoint.io')
-  ], { columns: 2 })
+// const keyboard = Markup.inlineKeyboard(
+//   [
+//     Markup.button.callback('\u{1F9FE} Balance', 'balance'),
+//     Markup.button.callback('\u{1F9FE} Configs', 'configs'),
+//     Markup.button.callback('\u{1F51B} Test Mode', 'test'),
+//     Markup.button.url('₿', 'https://www.biscoint.io')
+//   ], { columns: 2 })
+
+const keyboard = Markup.keyboard([
+  ['🔍 Search', '😎 Popular'], // Row1 with 2 buttons
+  ['☸ Setting', '📞 Feedback'], // Row2 with 2 buttons
+  ['📢 Ads', '⭐️ Rate us', '👥 Share'] // Row3 with 3 buttons
+])
+.oneTime()
+.resize()
 
 bot.action('balance', async (ctx) => {
   checkBalances();
@@ -188,8 +196,8 @@ const checkBalances = async () => {
 <b>Status</b>: ${!test ? `\u{1F51B} Robô operando.` : `\u{1F6D1} Modo simulação.`} 
 <b>BRL:</b> ${BRL} 
 <b>BTC:</b> ${BTC} (R$ ${(priceBTC.last * BTC).toFixed(2)})
-`, { parse_mode: "HTML" }, keyboard);
-  //await bot.telegram.sendMessage(botchat, "Balance!", keyboard)
+`, { parse_mode: "HTML" });
+  await bot.telegram.sendMessage(botchat, "Balance!", keyboard)
 
   handleMessage(`Balances:  BRL: ${BRL} - BTC: ${BTC} `);
 };
