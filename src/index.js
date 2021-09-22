@@ -56,10 +56,9 @@ bot.hears('🔛 Test Mode', async (ctx) => {
 
 bot.hears('☸ Configs', (ctx) => {
   ctx.replyWithMarkdown(`
-*intervalMs*: ${intervalMs}
-*test*: ${test}
-*amount*: ${amount}
-*differencelogger*: ${differencelogger}
+*Intervalo*: ${intervalMs}ms
+*Modo teste*: ${test}
+*Saldo*: ${amount}
     `, keyboard)
 }
 );
@@ -197,7 +196,7 @@ const checkBalances = async () => {
 <b>BRL:</b> ${BRL} 
 <b>BTC:</b> ${BTC} (R$ ${(priceBTC.last * BTC).toFixed(2)})
 `, { parse_mode: "HTML" });
-  await bot.telegram.sendMessage(botchat, "Balance!", keyboard)
+  //await bot.telegram.sendMessage(botchat, "Balance!", keyboard)
 
   handleMessage(`Balances:  BRL: ${BRL} - BTC: ${BTC} `);
 };
