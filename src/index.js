@@ -111,7 +111,7 @@ handleMessage("\u{1F911} Iniciando Trades!");
 let tradeCycleCount = 0;
 
 async function trade() {
-  if (multibot && !minInterval) {
+  if (multibot) {
     const res = await axios.post(`http://${host}:${port}/status`, robo)
     botStatus = res.data
   } else {
@@ -259,6 +259,7 @@ const checkInterval = async () => {
 
   if (!intervalMs) {
     intervalMs = minInterval;
+    multibot = false;
     handleMessage(`Setting interval to ${intervalMs}s`);
   } else if (intervalMs < minInterval) {
     handleMessage(`Interval too small (${intervalMs}s). Must be higher than ${minInterval.toFixed(1)}s`);
@@ -269,6 +270,7 @@ const start = async () => {
   handleMessage('Starting trades');
   bot.telegram.sendMessage(botchat, '\u{1F911} Iniciando trades!');
   await checkInterval();
+  await trade();
   setInterval(() => {
     limiter.schedule(() => trade());
   }, intervalMs);
