@@ -61,6 +61,26 @@
     "token": {
       "description": "Token do Telegram. Exemplo: 1688943477:ACDhWI4A0-cy--L3IGgjjp2yuPq2TC7TJvg",
       "required": true
+    },
+    "botId": {
+      "description": "bot_1 ou bot_2",
+      "required": true,
+      "value": "bot_1"
+    },
+    "host": {
+      "description": "Servidor dos bots",
+      "required": false,
+      "valor": "localhost"
+    },
+    "port": {
+      "description": "Porta usada pelos bots",
+      "required": false,
+      "value": "80"
+    },
+    "multibot": {
+      "description": "Usar mais de um bot",
+      "required": false,
+      "value": "true"
     }
   }
 }

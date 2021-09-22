@@ -3,18 +3,24 @@ import Bottleneck from "bottleneck";
 import { handleMessage, handleError, percent } from "./utils";
 //import config from "./config.js";
 import { Telegraf, Markup } from 'telegraf';
+import axios from 'axios';
 
 //let { amount, initialSell, intervalMs, test, differencelogger } = config;
 
 let {
   apiKey, apiSecret, amount, initialSell, intervalMs, test,
-  differencelogger, token, botchat
+  differencelogger, token, botchat, botId, host, port, multibot
 } = require("./env")
 
 const bc = new Biscoint({
   apiKey: apiKey,
   apiSecret: apiSecret,
 });
+
+// multibot
+let robo = new Object()
+robo.id = botId
+let botStatus = false
 
 // Telegram
 const bot = new Telegraf(token)
@@ -106,6 +112,15 @@ bot.telegram.sendMessage(botchat, '\u{1F911} Iniciando Trades!', keyboard)
 let tradeCycleCount = 0;
 
 async function trade() {
+  if (multibot) {
+    const res = await axios.post(`http://${host}:${port}/status`, robo)
+    botStatus = res.data
+  } else {
+    botStatus = true
+    intervalMs = 5500
+  }
+  handleMessage(`O botStatus é: ${botStatus}`)
+  if (botStatus) {
   try {
     const sellOffer = await bc.offer({
       amount,
@@ -122,7 +137,7 @@ async function trade() {
     const profit = percent(buyOffer.efPrice, sellOffer.efPrice);
     if (differencelogger)
       handleMessage(`Variação de preço: ${profit.toFixed(3)}%`);
-    handleMessage(`Test mode: ${test}`);
+      handleMessage(`Test mode: ${test}`);
     if (buyOffer.efPrice < sellOffer.efPrice && !test) {
       handleMessage(`\u{1F911} Sucesso! Lucro: ${profit.toFixed(3)}%`);
       bot.telegram.sendMessage(botchat, `Profit found: ${profit.toFixed(3)}%`, keyboard)
@@ -185,6 +200,9 @@ async function trade() {
   } catch (error) {
     handleError("Error on get offer", error);
   }
+} else {
+  handleMessage('Aguardando...');
+}
 }
 
 setInterval(() => {
