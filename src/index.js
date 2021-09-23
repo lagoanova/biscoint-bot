@@ -263,7 +263,7 @@ const checkInterval = async () => {
   const { endpoints } = await bc.meta();
   const { windowMs, maxRequests } = endpoints.offer.post.rateLimit;
   handleMessage(`Offer Rate limits: ${maxRequests} request per ${windowMs}ms.`);
-  let minInterval = 2.0 * parseFloat(windowMs) / parseFloat(maxRequests);
+  let minInterval = 2.0 * parseFloat(windowMs) / parseFloat(maxRequests) / 1000;
 
   if (multibot) {
     intervalMs = 2500.0;
@@ -272,7 +272,7 @@ const checkInterval = async () => {
   } else {
     //handleMessage(`Interval too small (${intervalMs}s). Must be higher than ${minInterval.toFixed(1)}s`, 'error', false);
     handleMessage(`Interval too small (${intervalMs}s). Must be higher than ${minInterval.toFixed(1)}s`);
-    intervalMs = minInterval;
+    intervalMs = parseFloat(minInterval);
   }
 };
 
