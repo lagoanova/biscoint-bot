@@ -37,7 +37,7 @@ let balances
 //   ], { columns: 2 })
 
 const keyboard = Markup.keyboard([
-  ['🧾 Balance', '🔍 BTC Price'], // Row1 with 2 buttons
+  ['🧾 Extrato', '🔍 BTC Price'], // Row1 with 2 buttons
   ['☸ Configs', '📖 Help'], // Row2 with 2 buttons
   ['🔛 Test Mode', '💶 Buy BTC', '₿'] // Row3 with 2 buttons
 ])
@@ -50,7 +50,7 @@ bot.hears('📖 Help', async (ctx) => {
   ctx.replyWithMarkdown(
     `*Comandos disponíveis:* 
       ============  
-  *🧾 Balance:* Extrato resumido do saldo na corretora.\n
+  *🧾 Extrato:* Extrato resumido do saldo na corretora.\n
   *🔍 BTC Price:* Último preço do Bitcoin na corretora.\n
   *☸ Configs:* Configurações do Bot.\n
   *🔛 Test Mode:* Ativar/Desativar modo simulação.\n
@@ -79,7 +79,7 @@ bot.hears(/^\/comprar (.+)$/, async ctx => {
 }
 )
 
-bot.hears('🧾 Balance', async (ctx) => {
+bot.hears('🧾 Extrato', async (ctx) => {
   checkBalances();
 }
 );
