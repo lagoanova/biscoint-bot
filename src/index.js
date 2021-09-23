@@ -339,7 +339,7 @@ async function buyBTC(valor) {
             bot.telegram.sendMessage(botchat, `Compra de ${valor} em BTC efetuada com sucesso!`);
             resolve(true)     
           } catch (error) {
-            bot.telegram.sendMessage(botchat, `${error.error}. ${error.details}`);
+            bot.telegram.sendMessage(botchat, `${error.error}. ${error.details}`, keyboard);
             reject(false)
           }
         }
