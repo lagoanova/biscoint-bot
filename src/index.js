@@ -99,10 +99,11 @@ bot.hears('🔛 Test Mode', async (ctx) => {
 
 bot.hears('☸ Configs', (ctx) => {
   ctx.replyWithMarkdown(`
-*Intervalo*: ${intervalMs}s
-*Modo teste*: ${test}
-*Saldo em Operação*: ${amount}
-*Multibot*: ${multibot}
+*Configurações:*
+⏱️ *Intervalo*: ${intervalMs}s
+ℹ️ *Modo teste*: ${test}
+💵 *Saldo em Operação*: ${amount}
+✔️ *Multibot*: ${multibot}
     `, keyboard)
 }
 );
@@ -110,10 +111,10 @@ bot.hears('☸ Configs', (ctx) => {
 bot.hears('🔍 BTC Price', async (ctx) => {
   let priceBTC = await bc.ticker();
   ctx.replyWithMarkdown(`*Biscoint:*
-📊 Último preço: ${Number(priceBTC.last).toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })}
-📈 Alta de hoje: ${Number(priceBTC.high).toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })}
-📉 Baixa de hoje: ${Number(priceBTC.low).toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })}
- ₿ Volume: ${Number(priceBTC.vol)} BTC
+📊 *Último preço:* ${Number(priceBTC.last).toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })}
+📈 *Alta de hoje:* ${Number(priceBTC.high).toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })}
+📉 *Baixa de hoje:* ${Number(priceBTC.low).toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })}
+ ₿ *Volume:* ${Number(priceBTC.vol)} BTC
 `, keyboard)
 }
 );
