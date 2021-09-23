@@ -47,7 +47,7 @@ bot.on('text', (ctx) => {
   if (ctx.message.text.length > 5) {
     ctx.reply('Abrindo menu!', keyboard);
   } else {
-    return
+    return false
   }
 })
 
