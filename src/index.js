@@ -263,7 +263,7 @@ const checkInterval = async () => {
   const { endpoints } = await bc.meta();
   const { windowMs, maxRequests } = endpoints.offer.post.rateLimit;
   handleMessage(`Offer Rate limits: ${maxRequests} request per ${windowMs}ms.`);
-  let minInterval = 2.0 * parseFloat(windowMs) / parseFloat(maxRequests) / 1000;
+  let minInterval = 2.0 * parseFloat(windowMs) / parseFloat(maxRequests);
 
   if (multibot) {
     intervalMs = 2500;
@@ -282,7 +282,7 @@ async function start() {
   await checkInterval();
   setInterval(async () => {
     limiter.schedule(async () => await trade());
-  }, intervalMs * 1000);
+  }, intervalMs);
 }
 
 bot.launch()
