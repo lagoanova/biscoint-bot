@@ -39,11 +39,6 @@
       "required": true,
       "value": "true"
     },
-    "intervalMs": {
-      "description": "Intervalo. Deixe o campo vazio para o bot calcular automaticamente",
-      "required": false, 
-      "value": ""
-    },
     "test": {
       "description": "Ativar modo simulação",
       "required": true,
