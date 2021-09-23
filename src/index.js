@@ -274,7 +274,7 @@ const checkInterval = async () => {
   } else {
     //handleMessage(`Interval too small (${intervalMs}s). Must be higher than ${minInterval.toFixed(1)}s`, 'error', false);
     handleMessage(`Interval too small (${intervalMs}s). Must be higher than ${minInterval.toFixed(1)}s`);
-    intervalMs = minInterval * 1000;
+    intervalMs = minInterval * 1200;
   }
 };
 
