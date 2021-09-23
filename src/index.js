@@ -101,9 +101,9 @@ bot.hears('☸ Configs', (ctx) => {
   ctx.replyWithMarkdown(`
 *Configurações:*
 ⏱️ *Intervalo*: ${intervalMs}s
-ℹ️ *Modo teste*: ${test}
-💵 *Saldo em Operação*: ${amount}
-✔️ *Multibot*: ${multibot}
+ℹ️ *Modo teste*: ${ test ? 'ativado' : 'desativado' }
+💵 *Saldo em operação*: ${amount}
+✔️ *Multibot*: ${ multibot ? 'ativado' : 'desativado' }
     `, keyboard)
 }
 );
