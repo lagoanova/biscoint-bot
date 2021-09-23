@@ -345,7 +345,11 @@ async function buyBTC(valor) {
             bot.telegram.sendMessage(botchat, `Compra de ${valor} em BTC efetuada com sucesso!`);
             resolve(true)     
           } catch (error) {
-            bot.telegram.sendMessage(botchat, `${error.error}. ${error.details}`, keyboard);
+            if (error.error === "Insufficient funds") {
+              bot.telegram.sendMessage(botchat, `Você não tem saldo suficiente em BRL!`);
+            } else {
+              bot.telegram.sendMessage(botchat, `${error.error}. ${error.details}`);
+            }
             reject(false)
           }
         }
@@ -354,11 +358,7 @@ async function buyBTC(valor) {
           reject(false)
         }
       } catch (error) {
-        if (error.error === "Insufficient funds") {
-          bot.telegram.sendMessage(botchat, `Você não tem saldo suficiente em BRL!`);
-        } else {
-          bot.telegram.sendMessage(botchat, `${error.error}. ${error.details} ok`);
-        }
+        bot.telegram.sendMessage(botchat, `${error.error}. ${error.details}`);
         reject(false)
       }
     })();
