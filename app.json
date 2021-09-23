@@ -41,7 +41,8 @@
     },
     "intervalMs": {
       "description": "Intervalo.",
-      "required": false
+      "required": false, 
+      "value": "null"
     },
     "test": {
       "description": "Ativar modo simulação",
