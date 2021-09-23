@@ -199,6 +199,7 @@ async function trade() {
                   3
                 )}%, cycles: ${tradeCycleCount}`
               );
+              await startAmount();
             } catch (error) {
               handleError("Error on buy, retrying", error);
               await forceConfirm("buy", sellOffer.efPrice);
@@ -225,6 +226,7 @@ async function trade() {
                   3
                 )}%, cycles: ${tradeCycleCount}`
               );
+              await startAmount();
             } catch (error) {
               handleError("Error on sell, retrying", error);
               await forceConfirm("sell", buyOffer.efPrice);
@@ -266,6 +268,7 @@ async function forceConfirm(side, oldPrice) {
     ) {
       await bc.confirmOffer({ offerId: offer.offerId });
       handleMessage("Success on retry");
+      await startAmount();
     } else {
       //throw "Error on forceConfirm, price is much distant";
       bot.telegram.sendMessage(botchat, `
