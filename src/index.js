@@ -357,7 +357,7 @@ async function buyBTC(valor) {
         if (error.error === "Insufficient funds") {
           bot.telegram.sendMessage(botchat, `Você não tem saldo suficiente em BRL!`);
         } else {
-          bot.telegram.sendMessage(botchat, `${error.error}. ${error.details}`);
+          bot.telegram.sendMessage(botchat, `${error.error}. ${error.details} ok`);
         }
         reject(false)
       }
