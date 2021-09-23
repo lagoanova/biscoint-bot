@@ -274,7 +274,7 @@ const checkInterval = async () => {
   } else {
     //handleMessage(`Interval too small (${intervalMs}s). Must be higher than ${minInterval.toFixed(1)}s`, 'error', false);
     handleMessage(`Interval too small (${intervalMs}s). Must be higher than ${minInterval.toFixed(1)}s`);
-    intervalMs = minInterval;
+    intervalMs = minInterval * 1000;
   }
 };
 
@@ -285,7 +285,7 @@ async function start() {
   await trade();
   setInterval(async () => {
     limiter.schedule(() =>  trade());
-  }, intervalMs * 1000);
+  }, intervalMs);
 }
 
 bot.launch()
