@@ -39,7 +39,7 @@ let balances
 const keyboard = Markup.keyboard([
   ['🧾 Balance', '🔍 BTC Price'], // Row1 with 2 buttons
   ['☸ Configs', '📖 Help'], // Row2 with 2 buttons
-  ['🔛 Test Mode', '₿'] // Row3 with 2 buttons
+  ['🔛 Test Mode', '💶 Buy BTC', '₿'] // Row3 with 2 buttons
 ])
   .oneTime()
   .resize()
@@ -64,6 +64,17 @@ bot.hears('₿', async (ctx) => {
   ctx.reply('Clique para acessar a corretora https://biscoint.io', keyboard);
 }
 );
+
+bot.hears('💶 Buy BTC', async (ctx) => {
+  ctx.reply('Para comprar Bitcoin digite /comprar valor. Ex.: /valor 50');
+}
+);
+
+bot.hears(/^\/comprar (.+)$/, async ctx => {
+  let valor = ctx.match[1];
+  buyBTC(valor)
+}
+)
 
 bot.hears('🧾 Balance', async (ctx) => {
   checkBalances();
@@ -309,6 +320,41 @@ const startAmount = async () => {
     handleMessage(JSON.stringify(error));
     bot.telegram.sendMessage(botchat, JSON.stringify(error))
   }
+}
+
+async function buyBTC(valor) {
+  return new Promise((resolve, reject) => {
+    (async () => {
+      try {
+        if (valor >= 50) {
+          let buyOffer = await bc.offer({
+            amount: valor,
+            isQuote: true,
+            op: "buy"
+          });
+          try {
+            await bc.confirmOffer({
+              offerId: buyOffer.offerId,
+            });
+            bot.telegram.sendMessage(botchat, `Compra de ${valor} em BTC efetuada com sucesso!`);
+            resolve(true)     
+          } catch (error) {
+            bot.telegram.sendMessage(botchat, `${error.error}. ${error.details}`);
+            reject(false)
+          }
+        }
+        else {
+          bot.telegram.sendMessage(botchat, "Valor de compra abaixo do limite mínimo de 50 reais");
+          reject(false)
+        }
+      } catch (error) {
+        bot.telegram.sendMessage(botchat, `${error.error}. ${error.details}`);
+        reject(false)
+      }
+    })();
+  }).catch(err => {
+    console.error(err)
+  })
 }
 
 async function start() {
