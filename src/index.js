@@ -282,7 +282,7 @@ async function start() {
   await checkInterval();
   setInterval(async () => {
     limiter.schedule(() => trade());
-  }, intervalMs * 1000);
+  }, intervalMs * 1000.0);
 }
 
 bot.launch()
