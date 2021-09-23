@@ -20,4 +20,5 @@ module.exports = envalid.cleanEnv(process.env, {
         desc: "The port to start the server on",
     }),
     multibot: envalid.bool({ default: true }),
+    dataInicial: envalid.str({ default: "01/09/2021" }),
 })

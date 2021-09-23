@@ -76,6 +76,11 @@
       "description": "Usar mais de um bot",
       "required": true,
       "value": "true"
+    },
+    "dataInicial": {
+      "description": "Data que o bot começou a rodar",
+      "required": true,
+      "value": "01/09/2021"
     }
   }
 }

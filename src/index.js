@@ -9,7 +9,8 @@ import axios from 'axios';
 
 let {
   apiKey, apiSecret, amount, initialSell, intervalMs, test,
-  differencelogger, token, botchat, botId, host, port, multibot
+  differencelogger, token, botchat, botId, host, port, multibot,
+  dataInicial
 } = require("./env")
 
 const bc = new Biscoint({
@@ -264,9 +265,28 @@ const checkBalances = async () => {
   const { BRL, BTC } = balances;
   let priceBTC = await bc.ticker();
 
+  // Pegando a data
+  let data = dataInicial
+
+  // Precisamos quebrar a string para retornar cada parte
+  const dataSplit = data.split('/');
+
+  const day = dataSplit[0]; // 30
+  const month = dataSplit[1]; // 03
+  const year = dataSplit[2]; // 2019
+
+  // Agora podemos inicializar o objeto Date, lembrando que o mês começa em 0, então fazemos -1.
+  data = new Date(year, month - 1, day);
+  const now = new Date(); // Data de hoje
+  const past = new Date(data); // Outra data no passado
+  const diff = Math.abs(now.getTime() - past.getTime()); // Subtrai uma data pela outra
+  const days = Math.ceil(diff / (1000 * 60 * 60 * 24)); // Divide o total pelo total de milisegundos correspondentes a 1 dia. (1000 milisegundos = 1 segundo).
+
   await bot.telegram.sendMessage(botchat,
     `\u{1F911} Balanço:
 <b>Status</b>: ${!test ? `\u{1F51B} Robô operando.` : `\u{1F6D1} Modo simulação.`} 
+<b>Data Inicial</b>: ${dataInicial}
+<b>Dias Operando</b>: ${days}
 <b>Amount Configurado</b>: ${amount}
 <b>BRL:</b> ${BRL} 
 <b>BTC:</b> ${BTC} (R$ ${(priceBTC.last * BTC).toFixed(2)})
