@@ -43,7 +43,7 @@ const keyboard = Markup.keyboard([
   .oneTime()
   .resize()
 
-bot.hears('Oi', (ctx) => ctx.reply('Olá!', keyboard))
+bot.hears(/^(?!(oi|olá))\w*/m, (ctx) => ctx.reply('Olá!', keyboard))
 
 bot.hears('📖 Help', async (ctx) => {
   ctx.replyWithMarkdown(
