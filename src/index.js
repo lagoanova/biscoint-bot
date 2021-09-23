@@ -229,10 +229,6 @@ async function trade() {
   }
 }
 
-setInterval(() => {
-  limiter.schedule(() => trade());
-}, intervalMs * 1000);
-
 async function forceConfirm(side, oldPrice) {
   try {
     const offer = await bc.offer({
@@ -275,24 +271,6 @@ const checkBalances = async () => {
   await bot.telegram.sendMessage(botchat, "Extrato resumido. Para maiores detalhes, acesse a corretora Biscoint!", keyboard)
 
   handleMessage(`Balances:  BRL: ${BRL} - BTC: ${BTC} `);
-};
-
-// Check interval
-const checkInterval = async () => {
-  const { endpoints } = await bc.meta();
-  const { windowMs, maxRequests } = endpoints.offer.post.rateLimit;
-  handleMessage(`Offer Rate limits: ${maxRequests} request per ${windowMs}ms.`);
-  let minInterval = 2.0 * parseFloat(windowMs) / parseFloat(maxRequests) / 1000.0;
-  
-  if (multibot) {
-    intervalMs = 2500;
-    handleMessage(`Setting interval to ${intervalMs}s`);
-    //} else if (intervalMs < minInterval) {
-  } else {
-    //handleMessage(`Interval too small (${intervalMs}s). Must be higher than ${minInterval.toFixed(1)}s`, 'error', false);
-    handleMessage(`Interval too small (${intervalMs}s). Must be higher than ${minInterval.toFixed(1)}s`);
-    intervalMs = minInterval * 1000;
-  }
 };
 
 async function start() {
