@@ -287,5 +287,5 @@ bot.launch()
 start().catch(e => handleMessage(JSON.stringify(e), 'error'));
 
 setInterval(async () => {
-  limiter.schedule(async () => await trade());
-}, intervalMs);
+  limiter.schedule(() => trade());
+}, intervalMs * 1000);
