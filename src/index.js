@@ -300,10 +300,22 @@ const checkBalances = async () => {
   handleMessage(`Balances:  BRL: ${BRL} - BTC: ${BTC} `);
 };
 
+const startAmount = async () => {
+  try {
+    let { BRL, BTC } = await bc.balance();
+    let amountBTC = BTC - (BTC*0.10)
+    amount = amountBTC
+  } catch (error) {
+    handleMessage(JSON.stringify(error));
+    bot.telegram.sendMessage(botchat, JSON.stringify(error))
+  }
+}
+
 async function start() {
   handleMessage('Starting trades');
   bot.telegram.sendMessage(botchat, '\u{1F911} Iniciando trades!');
   await checkInterval();
+  await startAmount();
   setInterval(async () => {
     limiter.schedule(() => trade());
   }, intervalMs * 1000);
