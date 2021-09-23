@@ -146,7 +146,6 @@ const limiter = new Bottleneck({
 });
 
 handleMessage("\u{1F911} Iniciando Trades!");
-bot.telegram.sendMessage(botchat, '\u{1F911} Iniciando Trades!', keyboard)
 
 let tradeCycleCount = 0;
 
@@ -346,7 +345,7 @@ async function buyBTC(valor) {
             resolve(true)     
           } catch (error) {
             if (error.error === "Insufficient funds") {
-              bot.telegram.sendMessage(botchat, `Você não tem saldo suficiente em BRL!`);
+              bot.telegram.sendMessage(botchat, `Você não tem saldo suficiente em BRL!`, keyboard);
             } else {
               bot.telegram.sendMessage(botchat, `${error.error}. ${error.details}`);
             }
@@ -354,11 +353,11 @@ async function buyBTC(valor) {
           }
         }
         else {
-          bot.telegram.sendMessage(botchat, "Valor de compra abaixo do limite mínimo de 50 reais");
+          bot.telegram.sendMessage(botchat, "Valor de compra abaixo do limite mínimo de 50 reais", keyboard);
           reject(false)
         }
       } catch (error) {
-        bot.telegram.sendMessage(botchat, `${error.error}. ${error.details}`);
+        bot.telegram.sendMessage(botchat, `${error.error}. ${error.details}`, keyboard);
         reject(false)
       }
     })();
@@ -369,7 +368,7 @@ async function buyBTC(valor) {
 
 async function start() {
   handleMessage('Starting trades');
-  bot.telegram.sendMessage(botchat, '\u{1F911} Iniciando trades!');
+  bot.telegram.sendMessage(botchat, '\u{1F911} Iniciando trades!', keyboard);
   await checkInterval();
   await startAmount();
   setInterval(async () => {
