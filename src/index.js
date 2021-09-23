@@ -107,13 +107,13 @@ const checkInterval = async () => {
   handleMessage(`Offer Rate limits: ${maxRequests} request per ${windowMs}ms.`);
   let minInterval = 2.0 * parseFloat(windowMs) / parseFloat(maxRequests) / 1000.0;
 
-  if (!intervalMs && !multibot) {
-    intervalMs = minInterval;
+  if (multibot) {
+    intervalMs = 2.5;
     handleMessage(`Setting interval to ${intervalMs}s`);
   } else {
     //handleMessage(`Interval too small (${intervalMs}s). Must be higher than ${minInterval.toFixed(1)}s`, 'error', false);
     //handleMessage(`Interval too small (${intervalMs}s). Must be higher than ${minInterval.toFixed(1)}s`);
-    intervalMs = 2.5;
+    intervalMs = minInterval;
   }
 };
 
@@ -279,7 +279,7 @@ async function start() {
   bot.telegram.sendMessage(botchat, '\u{1F911} Iniciando trades!');
   await checkInterval();
   setInterval(async () => {
-    limiter.schedule(() =>  trade());
+    limiter.schedule(() => trade());
   }, intervalMs * 1000);
 }
 
