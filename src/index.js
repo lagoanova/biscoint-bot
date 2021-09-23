@@ -44,10 +44,10 @@ const keyboard = Markup.keyboard([
   .resize()
 
 bot.on('text', (ctx) => { 
-  if (ctx.message.text.length > 5) {
-    ctx.reply('Abrindo menu!', keyboard);
-  } else {
+  if (ctx.message.text.length < 5) {
     return false
+  } else {
+    ctx.reply('Abrindo menu!', keyboard);
   }
 })
 
