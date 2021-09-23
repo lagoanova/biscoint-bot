@@ -160,7 +160,7 @@ async function trade() {
 
       const profit = percent(buyOffer.efPrice, sellOffer.efPrice);
       if (differencelogger) {
-        handleMessage(`Variação de preço: ${profit.toFixed(3)}%`);
+        handleMessage(`📈 Variação de preço: ${profit.toFixed(3)}%`);
         handleMessage(`O botStatus é: ${botStatus}`)
         handleMessage(`Multibot: ${multibot}`)
         handleMessage(`Intervalo: ${intervalMs}s`)
