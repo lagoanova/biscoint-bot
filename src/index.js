@@ -66,7 +66,10 @@ bot.hears('₿', async (ctx) => {
 );
 
 bot.hears('💶 Buy BTC', async (ctx) => {
-  ctx.reply('Para comprar Bitcoin digite /comprar valor. Ex.: /valor 50');
+  balances = await bc.balance();
+  const { BRL } = balances;
+  ctx.reply('Para comprar Bitcoin digite /comprar valor. Ex.: /valor 50\n' + 
+  'Seu saldo atual em BRL: ' + BRL);
 }
 );
 
