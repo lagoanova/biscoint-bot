@@ -156,7 +156,7 @@ async function trade() {
         handleMessage(`Variação de preço: ${profit.toFixed(3)}%`);
         handleMessage(`O botStatus é: ${botStatus}`)
         handleMessage(`Multibot: ${multibot}`)
-        handleMessage(`Intervalo: ${intervalMs}ms`)
+        handleMessage(`Intervalo: ${intervalMs}s`)
         handleMessage(`Test mode: ${test}`);
       }
       if (buyOffer.efPrice < sellOffer.efPrice && !test) {
