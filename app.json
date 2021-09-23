@@ -40,7 +40,7 @@
       "value": "true"
     },
     "intervalMs": {
-      "description": "Intervalo.",
+      "description": "Intervalo. Deixe o campo vazio para o bot calcular automaticamente",
       "required": false, 
       "value": ""
     },
