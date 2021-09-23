@@ -98,7 +98,7 @@ bot.hears('🔍 BTC Price', async (ctx) => {
 \u{1F61B}Último preço: ${Number(priceBTC.last).toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })}
 \u{1F603}Alta de hoje: ${Number(priceBTC.high).toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })}
 \u{1F928}Baixa de hoje: ${Number(priceBTC.low).toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })}
-\u{1F4E2}Volume: ${Number(priceBTC.vol)} BTC
+₿ Volume: ${Number(priceBTC.vol)} BTC
 `, keyboard)
 }
 );
