@@ -138,6 +138,7 @@ async function trade() {
       if (differencelogger) {
         handleMessage(`Variação de preço: ${profit.toFixed(3)}%`);
         handleMessage(`O botStatus é: ${botStatus}`)
+        handleMessage(`Multibot: ${multibot}`)
         handleMessage(`Intervalo: ${intervalMs}ms`)
         handleMessage(`Test mode: ${test}`);
       }
@@ -206,6 +207,7 @@ async function trade() {
   } else {
     handleMessage('Aguardando...');
     handleMessage(`O botStatus é: ${botStatus}`)
+    handleMessage(`Multibot: ${multibot}`)
     handleMessage(`Intervalo: ${intervalMs}ms`)
   }
 }
