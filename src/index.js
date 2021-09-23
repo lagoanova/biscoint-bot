@@ -88,6 +88,7 @@ bot.hears('☸ Configs', (ctx) => {
 *Intervalo*: ${intervalMs}s
 *Modo teste*: ${test}
 *Saldo*: ${amount}
+*Multibot*: ${multibot}
     `, keyboard)
 }
 );
