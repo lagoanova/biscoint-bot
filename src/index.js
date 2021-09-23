@@ -107,7 +107,7 @@ const checkInterval = async () => {
   handleMessage(`Offer Rate limits: ${maxRequests} request per ${windowMs}ms.`);
   let minInterval = 2.0 * parseFloat(windowMs) / parseFloat(maxRequests) / 1000.0;
 
-  if (intervalMs == null) {
+  if (intervalMs === null) {
     intervalMs = minInterval;
     handleMessage(`Setting interval to ${intervalMs}s`);
   } else {
