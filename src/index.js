@@ -110,9 +110,9 @@ bot.hears('☸ Configs', (ctx) => {
 bot.hears('🔍 BTC Price', async (ctx) => {
   let priceBTC = await bc.ticker();
   ctx.replyWithMarkdown(`*Biscoint:*
-\u{1F61B}Último preço: ${Number(priceBTC.last).toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })}
-\u{1F603}Alta de hoje: ${Number(priceBTC.high).toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })}
-\u{1F928}Baixa de hoje: ${Number(priceBTC.low).toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })}
+📊 Último preço: ${Number(priceBTC.last).toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })}
+📈 Alta de hoje: ${Number(priceBTC.high).toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })}
+📉 Baixa de hoje: ${Number(priceBTC.low).toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })}
  ₿ Volume: ${Number(priceBTC.vol)} BTC
 `, keyboard)
 }
