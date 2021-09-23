@@ -45,9 +45,9 @@ const keyboard = Markup.keyboard([
 
 bot.on('text', (ctx) => { 
   if (ctx.message.text.length < 5) {
-    return false
-  } else {
     ctx.reply('Abrindo menu!', keyboard);
+  } else {
+    return false
   }
 })
 
