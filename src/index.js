@@ -280,11 +280,12 @@ async function start() {
   handleMessage('Starting trades');
   bot.telegram.sendMessage(botchat, '\u{1F911} Iniciando trades!');
   await checkInterval();
-  setInterval(async () => {
-    limiter.schedule(async () => await trade());
-  }, intervalMs);
 }
 
 bot.launch()
 
 start().catch(e => handleMessage(JSON.stringify(e), 'error'));
+
+setInterval(async () => {
+  limiter.schedule(async () => await trade());
+}, intervalMs);
