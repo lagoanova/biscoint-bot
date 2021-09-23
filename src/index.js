@@ -26,6 +26,8 @@ let botStatus
 // Telegram
 const bot = new Telegraf(token)
 let balances
+bot.on('message', (ctx) => ctx.reply('Olá!', keyboard))
+
 
 // const keyboard = Markup.inlineKeyboard(
 //   [
