@@ -100,6 +100,23 @@ bot.hears('🔍 BTC Price', async (ctx) => {
 
 // Telegram End
 
+// Checks that the configured interval is within the allowed rate limit.
+const checkInterval = async () => {
+  const { endpoints } = await bc.meta();
+  const { windowMs, maxRequests } = endpoints.offer.post.rateLimit;
+  handleMessage(`Offer Rate limits: ${maxRequests} request per ${windowMs}ms.`);
+  let minInterval = 2.0 * parseFloat(windowMs) / parseFloat(maxRequests) / 1000.0;
+
+  if (!intervalMs) {
+    intervalMs = minInterval;
+    handleMessage(`Setting interval to ${intervalMs}s`);
+  } else {
+    //handleMessage(`Interval too small (${intervalMs}s). Must be higher than ${minInterval.toFixed(1)}s`, 'error', false);
+    handleMessage(`Interval too small (${intervalMs}s). Must be higher than ${minInterval.toFixed(1)}s`);
+    intervalMs = 2.5
+  }
+};
+
 const limiter = new Bottleneck({
   reservoir: 30,
   reservoirRefreshAmount: 30,
@@ -208,13 +225,13 @@ async function trade() {
     handleMessage('Aguardando...');
     handleMessage(`O botStatus é: ${botStatus}`)
     handleMessage(`Multibot: ${multibot}`)
-    handleMessage(`Intervalo: ${intervalMs}ms`)
+    handleMessage(`Intervalo: ${intervalMs}s`)
   }
 }
 
 setInterval(() => {
   limiter.schedule(() => trade());
-}, intervalMs);
+}, intervalMs * 1000);
 
 async function forceConfirm(side, oldPrice) {
   try {
