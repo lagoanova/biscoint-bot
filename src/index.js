@@ -274,6 +274,8 @@ async function forceConfirm(side, oldPrice) {
       bot.telegram.sendMessage(botchat, `
       Erro ao Confirmar Ordem, o preço está muito distante.
       Acesse a corretora e verifique seu saldo!`, keyboard)
+      // Mode test
+      test = true;
     }
   } catch (error) {
     handleError("Error on force confirm", error);
