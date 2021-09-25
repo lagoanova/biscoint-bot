@@ -39,7 +39,8 @@ let balances
 const keyboard = Markup.keyboard([
   ['🧾 Extrato', '🔍 BTC Price'], // Row1 with 2 buttons
   ['☸ Configs', '📖 Help'], // Row2 with 2 buttons
-  ['🔛 Test Mode', '💶 Buy BTC', '₿'] // Row3 with 2 buttons
+  ['🔛 Test Mode', '💶 Buy BTC'], // Row3 with 2 buttons
+  ['💵 Increase Amount', '₿'] // Row3 with 2 buttons
 ])
   .oneTime()
   .resize()
@@ -54,6 +55,7 @@ bot.hears('📖 Help', async (ctx) => {
   *🔍 BTC Price:* Último preço do Bitcoin na corretora.\n
   *☸ Configs:* Configurações do Bot.\n
   *🔛 Test Mode:* Ativar/Desativar modo simulação.\n
+  *💵 Increase Amount:* Aumentar o saldo em operação.\n
   *₿:* Acessar a corretora.\n
       ============
       `, keyboard)
@@ -119,6 +121,10 @@ bot.hears('🔍 BTC Price', async (ctx) => {
 }
 );
 
+bot.hears('💵 Increase Amount', async (ctx) => {
+  await increaseAmount();
+}
+);
 
 // Telegram End
 
@@ -367,6 +373,18 @@ async function buyBTC(valor) {
   }).catch(err => {
     console.error(err)
   })
+}
+
+const increaseAmount = async () => {
+  try {
+    let { BRL, BTC } = await bc.balance();
+    let amountBTC = BTC - (BTC * 0.10)
+    amount = amountBTC.toFixed(4)
+    bot.telegram.sendMessage(botchat, `Saldo em operação: ${amount}`, keyboard)
+  } catch (error) {
+    handleMessage(JSON.stringify(error));
+    bot.telegram.sendMessage(botchat, JSON.stringify(error))
+  }
 }
 
 async function start() {
