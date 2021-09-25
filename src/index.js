@@ -325,16 +325,6 @@ const checkBalances = async () => {
   handleMessage(`Balances:  BRL: ${BRL} - BTC: ${BTC} `);
 };
 
-const startAmount = async () => {
-  try {
-    let { BRL, BTC } = await bc.balance();
-    let amountBTC = BTC - (BTC*0.10)
-    amount = amountBTC
-  } catch (error) {
-    handleMessage(JSON.stringify(error));
-    bot.telegram.sendMessage(botchat, JSON.stringify(error))
-  }
-}
 
 async function buyBTC(valor) {
   return new Promise((resolve, reject) => {
@@ -378,7 +368,7 @@ async function buyBTC(valor) {
 const increaseAmount = async () => {
   try {
     let { BRL, BTC } = await bc.balance();
-    let amountBTC = BTC - (BTC * 0.10)
+    let amountBTC = BTC * 0.9 // pega 90% do valor em Bitcoin e coloca para operação
     amount = amountBTC.toFixed(4)
     bot.telegram.sendMessage(botchat, `Saldo em operação: ${amount}`, keyboard)
   } catch (error) {
