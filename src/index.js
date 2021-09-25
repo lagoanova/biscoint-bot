@@ -55,7 +55,7 @@ bot.hears('📖 Help', async (ctx) => {
   *🔍 BTC Price:* Último preço do Bitcoin na corretora.\n
   *☸ Configs:* Configurações do Bot.\n
   *🔛 Test Mode:* Ativar/Desativar modo simulação.\n
-  *💵 Increase Amount:* Aumentar o saldo em operação.\n
+  *💵 Increase Amount:* Fixa o valor do 'saldo em operação' para 90% do BTC disponível.\n
   *₿:* Acessar a corretora.\n
       ============
       `, keyboard)
@@ -103,9 +103,9 @@ bot.hears('☸ Configs', (ctx) => {
   ctx.replyWithMarkdown(`
 *Configurações:*
 ⏱️ *Intervalo*: ${intervalMs}s
-ℹ️ *Modo teste*: ${ test ? 'ativado' : 'desativado' }
+ℹ️ *Modo teste*: ${test ? 'ativado' : 'desativado'}
 💵 *Saldo em operação*: ${amount}
-✔️ *Multibot*: ${ multibot ? 'ativado' : 'desativado' }
+✔️ *Multibot*: ${multibot ? 'ativado' : 'desativado'}
     `, keyboard)
 }
 );
@@ -341,7 +341,7 @@ async function buyBTC(valor) {
               offerId: buyOffer.offerId,
             });
             bot.telegram.sendMessage(botchat, `Compra de ${valor} em BTC efetuada com sucesso!`);
-            resolve(true)     
+            resolve(true)
           } catch (error) {
             if (error.error === "Insufficient funds") {
               bot.telegram.sendMessage(botchat, `Você não tem saldo suficiente em BRL!`, keyboard);
@@ -368,9 +368,15 @@ async function buyBTC(valor) {
 const increaseAmount = async () => {
   try {
     let { BRL, BTC } = await bc.balance();
-    let amountBTC = BTC * 0.9 // pega 90% do valor em Bitcoin e coloca para operação
-    amount = amountBTC.toFixed(4)
-    bot.telegram.sendMessage(botchat, `Saldo em operação: ${amount}`, keyboard)
+    let amountBTC = (BTC * 0.9).toFixed(4) // pega 90% do valor em Bitcoin e coloca para operação
+    if (amountBTC < 0.0001) {
+      bot.telegram.sendMessage(botchat, `O valor mínimo para venda é de ฿ 0,00010000
+        Seu saldo em operação será definido para o valor disponível em BTC`, keyboard)
+      amount = BTC
+    } else {
+      amount = amountBTC
+      bot.telegram.sendMessage(botchat, `Saldo em operação: ${amount}`, keyboard)
+    }
   } catch (error) {
     handleMessage(JSON.stringify(error));
     bot.telegram.sendMessage(botchat, JSON.stringify(error))
