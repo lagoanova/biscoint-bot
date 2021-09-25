@@ -38,9 +38,9 @@ let balances
 
 const keyboard = Markup.keyboard([
   ['🧾 Extrato', '🔍 BTC Price'], // Row1 with 2 buttons
-  ['☸ Configs', '📖 Help'], // Row2 with 2 buttons
+  ['☸ Configs', '💵 Increase Amount'], // Row2 with 2 buttons
   ['🔛 Test Mode', '💶 Buy BTC'], // Row3 with 2 buttons
-  ['💵 Increase Amount', '₿'] // Row3 with 2 buttons
+  ['📖 Help', '₿'] // Row3 with 2 buttons
 ])
   .oneTime()
   .resize()
@@ -368,14 +368,12 @@ async function buyBTC(valor) {
 const increaseAmount = async () => {
   try {
     let { BRL, BTC } = await bc.balance();
-    let amountBTC = (BTC * 0.9).toFixed(4) // pega 90% do valor em Bitcoin e coloca para operação
-    if (amountBTC < 0.0001) {
-      bot.telegram.sendMessage(botchat, `O valor mínimo para venda é de ฿ 0,00010000
-        Seu saldo em operação será definido para o valor disponível em BTC`, keyboard)
-      amount = BTC
-    } else {
+    let amountBTC = (BTC * 0.9).toFixed(5) // pega 90% do saldo em Bitcoin e coloca para operação
+    if (amountBTC >= 0.0001) {
       amount = amountBTC
-      bot.telegram.sendMessage(botchat, `Saldo em operação: ${amount}`, keyboard)
+      bot.telegram.sendMessage(botchat, `💵 *Valor em operação*: ${amount}`, keyboard)
+    } else {
+      bot.telegram.sendMessage(botchat, `O valor mínimo para venda é de ฿ 0,00010000. Compre mais BTC!`, keyboard)
     }
   } catch (error) {
     handleMessage(JSON.stringify(error));
