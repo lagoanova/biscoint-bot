@@ -126,6 +126,12 @@ bot.hears('💵 Increase Amount', async (ctx) => {
 }
 );
 
+bot.hears(/^\/vender (.+)$/, async (ctx) => {
+  let valor = ctx.match[1];
+  await realizarLucro(valor)
+}
+)
+
 // Telegram End
 
 // Checks that the configured interval is within the allowed rate limit.
