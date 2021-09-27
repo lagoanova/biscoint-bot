@@ -194,7 +194,7 @@ async function trade() {
       }
       if (buyOffer.efPrice < sellOffer.efPrice && !test) {
         handleMessage(`\u{1F911} Sucesso! Lucro: ${profit.toFixed(3)}%`);
-        bot.telegram.sendMessage(botchat, `Profit found: ${profit.toFixed(3)}%`, keyboard)
+        //bot.telegram.sendMessage(botchat, `\u{1F911} Sucesso! Lucro: ${profit.toFixed(3)}%`, keyboard)
         if (initialSell) {
           /* initial sell */
           try {
@@ -211,7 +211,8 @@ async function trade() {
                   3
                 )}%, cycles: ${tradeCycleCount}`
               );
-              await startAmount();
+              bot.telegram.sendMessage(botchat, `\u{1F911} Sucesso! Lucro: ${profit.toFixed(3)}%`, keyboard);
+              await increaseAmount();
             } catch (error) {
               handleError("Error on buy, retrying", error);
               await forceConfirm("buy", sellOffer.efPrice);
@@ -238,7 +239,8 @@ async function trade() {
                   3
                 )}%, cycles: ${tradeCycleCount}`
               );
-              await startAmount();
+              bot.telegram.sendMessage(botchat, `\u{1F911} Sucesso! Lucro: ${profit.toFixed(3)}%`, keyboard);
+              await increaseAmount();
             } catch (error) {
               handleError("Error on sell, retrying", error);
               await forceConfirm("sell", buyOffer.efPrice);
@@ -280,7 +282,7 @@ async function forceConfirm(side, oldPrice) {
     ) {
       await bc.confirmOffer({ offerId: offer.offerId });
       handleMessage("Success on retry");
-      await startAmount();
+      await increaseAmount();
     } else {
       //throw "Error on forceConfirm, price is much distant";
       bot.telegram.sendMessage(botchat, `
@@ -391,7 +393,7 @@ async function start() {
   handleMessage('Starting trades');
   bot.telegram.sendMessage(botchat, '\u{1F911} Iniciando trades!', keyboard);
   await checkInterval();
-  await startAmount();
+  await increaseAmount();
   setInterval(async () => {
     limiter.schedule(() => trade());
   }, intervalMs * 1000);
