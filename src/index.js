@@ -380,9 +380,14 @@ const increaseAmount = async () => {
     if (amountBTC >= 0.0001) {
       amount = amountBTC
       bot.telegram.sendMessage(botchat, `💵 *Valor em operação*: ${amount}`, keyboard)
-    } else {
-      bot.telegram.sendMessage(botchat, `O valor mínimo para venda é de ฿ 0,00010000. Compre mais BTC!`, keyboard)
     }
+    // } else {
+    //   let buyBTCBalance = await buyBTC(BRL)
+    //   if (buyBTCBalance) {
+    //     bot.telegram.sendMessage(botchat, `Lucro realizado. Valor: ${BTC}`, keyboard);
+    //   }
+    //   bot.telegram.sendMessage(botchat, `💵 *Valor em operação*: ${amount}`, keyboard)
+    // }
   } catch (error) {
     handleMessage(JSON.stringify(error));
     bot.telegram.sendMessage(botchat, JSON.stringify(error))
