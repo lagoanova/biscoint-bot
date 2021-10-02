@@ -106,6 +106,7 @@ bot.hears('☸ Configs', (ctx) => {
 ℹ️ *Modo teste*: ${test ? 'ativado' : 'desativado'}
 💵 *Saldo em operação*: ${amount}
 ✔️ *Multibot*: ${multibot ? 'ativado' : 'desativado'}
+✔️ *initialSell*: ${initialSell ? 'ativado' : 'desativado'}
     `, keyboard)
 }
 );
