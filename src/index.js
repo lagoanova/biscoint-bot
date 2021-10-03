@@ -225,6 +225,7 @@ async function trade() {
               initialSell = !initialSell;
               handleMessage("Switched to first buy");
             }
+            await increaseAmount(); // test para comprar
           }
         } else {
           /* initial buy */
@@ -253,6 +254,7 @@ async function trade() {
               initialSell = !initialSell;
               handleMessage("Switched to first sell");
             }
+            await increaseAmount(); // test para comprar
           }
         }
       }
@@ -382,13 +384,13 @@ const increaseAmount = async () => {
       amount = amountBTC
       bot.telegram.sendMessage(botchat, `💵 *Valor em operação*: ${amount}`, keyboard)
     }
-    // } else {
-    //   let buyBTCBalance = await buyBTC(BRL)
-    //   if (buyBTCBalance) {
-    //     bot.telegram.sendMessage(botchat, `Lucro realizado. Valor: ${BTC}`, keyboard);
-    //   }
-    //   bot.telegram.sendMessage(botchat, `💵 *Valor em operação*: ${amount}`, keyboard)
-    // }
+    } else {
+      let buyBTCBalance = await buyBTC(BRL)
+      if (buyBTCBalance) {
+        bot.telegram.sendMessage(botchat, `Lucro realizado. Valor: ${BTC}`, keyboard);
+      }
+      bot.telegram.sendMessage(botchat, `💵 *Valor em operação*: ${amount}`, keyboard)
+    }
   } catch (error) {
     handleMessage(JSON.stringify(error));
     bot.telegram.sendMessage(botchat, JSON.stringify(error))
