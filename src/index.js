@@ -383,7 +383,6 @@ const increaseAmount = async () => {
     if (amountBTC >= 0.0001) {
       amount = amountBTC
       bot.telegram.sendMessage(botchat, `💵 *Valor em operação*: ${amount}`, keyboard)
-    }
     } else {
       let buyBTCBalance = await buyBTC(BRL)
       if (buyBTCBalance) {
