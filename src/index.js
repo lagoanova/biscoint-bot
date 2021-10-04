@@ -229,7 +229,7 @@ async function trade() {
             let { BRL, BTC } = await bc.balance();
             let buyBTCBalance = await buyBTC(BRL)
             if (buyBTCBalance) {
-              bot.telegram.sendMessage(botchat, `Lucro realizado. Valor: ${BTC}`, keyboard);
+              bot.telegram.sendMessage(botchat, `Compra de BTC: ${BTC}`, keyboard);
               await increaseAmount()
             }
           }
@@ -264,7 +264,7 @@ async function trade() {
             let { BRL, BTC } = await bc.balance();
             let buyBTCBalance = await buyBTC(BRL)
             if (buyBTCBalance) {
-              bot.telegram.sendMessage(botchat, `Lucro realizado. Valor: ${BTC}`, keyboard);
+              bot.telegram.sendMessage(botchat, `Compra de BTC: ${BTC}`, keyboard);
               await increaseAmount()
             }
           }
@@ -302,7 +302,7 @@ async function forceConfirm(side, oldPrice) {
       //throw "Error on forceConfirm, price is much distant";
       bot.telegram.sendMessage(botchat, `
       Erro ao Confirmar Ordem, o preço está muito distante.
-      Acesse a corretora e verifique seu saldo!`, keyboard)
+      Acesse a corretora e decida se irá vender o saldo e iniciar as operações do bot!`, keyboard)
       // Mode test
       //test = true;
     }
