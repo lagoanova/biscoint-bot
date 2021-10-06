@@ -196,6 +196,7 @@ async function trade() {
       if (buyOffer.efPrice < sellOffer.efPrice && !test) {
         handleMessage(`\u{1F911} Sucesso! Lucro: ${profit.toFixed(3)}%`);
         //bot.telegram.sendMessage(botchat, `\u{1F911} Sucesso! Lucro: ${profit.toFixed(3)}%`, keyboard)
+        await increaseAmount();
         if (initialSell) {
           /* initial sell */
           try {
