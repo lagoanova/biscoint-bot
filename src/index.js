@@ -224,14 +224,15 @@ async function trade() {
             if (error.error === "Insufficient funds") {
               initialSell = !initialSell;
               handleMessage("Switched to first buy");
+              await increaseAmount(); // persistir variável no heroku
             }
             // test para comprar
-            let { BRL, BTC } = await bc.balance();
-            let buyBTCBalance = await buyBTC(BRL)
-            if (buyBTCBalance) {
-              bot.telegram.sendMessage(botchat, `Compra de BTC: ${BTC}`, keyboard);
-              await increaseAmount()
-            }
+            // let { BRL, BTC } = await bc.balance();
+            // let buyBTCBalance = await buyBTC(BRL)
+            // if (buyBTCBalance) {
+            //   bot.telegram.sendMessage(botchat, `Compra de BTC: ${BTC}`, keyboard);
+            //   await increaseAmount()
+            // }
           }
         } else {
           /* initial buy */
@@ -259,14 +260,15 @@ async function trade() {
             if (error.error === "Insufficient funds") {
               initialSell = !initialSell;
               handleMessage("Switched to first sell");
+              await increaseAmount(); // persistir variável no heroku
             }
             // test para comprar
-            let { BRL, BTC } = await bc.balance();
-            let buyBTCBalance = await buyBTC(BRL)
-            if (buyBTCBalance) {
-              bot.telegram.sendMessage(botchat, `Compra de BTC: ${BTC}`, keyboard);
-              await increaseAmount()
-            }
+            // let { BRL, BTC } = await bc.balance();
+            // let buyBTCBalance = await buyBTC(BRL)
+            // if (buyBTCBalance) {
+            //   bot.telegram.sendMessage(botchat, `Compra de BTC: ${BTC}`, keyboard);
+            //   await increaseAmount()
+            // }
           }
         }
       }
@@ -289,7 +291,7 @@ async function forceConfirm(side, oldPrice) {
       isQuote: false,
       op: side,
     });
-
+    
     // if side is buy then compare with sell price
     if (
       (side === "buy" && oldPrice * 1.1 >= Number(offer.efPrice)) ||
@@ -297,7 +299,7 @@ async function forceConfirm(side, oldPrice) {
     ) {
       await bc.confirmOffer({ offerId: offer.offerId });
       handleMessage("Success on retry");
-      await increaseAmount();
+      await increaseAmount(); // persistir variável no heroku
     } else {
       //throw "Error on forceConfirm, price is much distant";
       bot.telegram.sendMessage(botchat, `
@@ -390,11 +392,18 @@ async function buyBTC(valor) {
 
 const increaseAmount = async () => {
   try {
-    let { BRL, BTC } = await bc.balance();
-    let amountBTC = (BTC * 0.9).toFixed(5) // pega 90% do saldo em Bitcoin e coloca para operação
+    balances = await bc.balance();
+    let { last } = await bc.ticker();
+    const { BRL, BTC } = balances;
+    let amountBRL = ((BRL * 0.95)/last).toFixed(5)
+    let amountBTC = (BTC * 0.95).toFixed(5) 
     if (amountBTC >= 0.0001) {
-      amount = amountBTC
-      initialSell = true
+      amount = amountBTC;
+      initialSell = true; // persistir variável no heroku e initial sell
+      bot.telegram.sendMessage(botchat, `💵 *Valor em operação*: ${amount}`, keyboard)
+    } else {
+      initialSell = false // persistir variável no heroku e initial buy
+      amount = amountBRL
       bot.telegram.sendMessage(botchat, `💵 *Valor em operação*: ${amount}`, keyboard)
     }
   } catch (error) {
