@@ -99,8 +99,8 @@ bot.hears('🔛 Test Mode', async (ctx) => {
 }
 );
 
-bot.hears('☸ Configs', async (ctx) => {
-  await ctx.replyWithMarkdown(`
+bot.hears('☸ Configs', (ctx) => {
+  ctx.replyWithMarkdown(`
 *Configurações:*
 ⏱️ *Intervalo*: ${intervalMs}s
 ℹ️ *Modo teste*: ${test ? 'ativado' : 'desativado'}
