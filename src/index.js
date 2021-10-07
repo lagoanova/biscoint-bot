@@ -192,6 +192,7 @@ async function trade() {
         handleMessage(`Multibot: ${multibot}`)
         handleMessage(`Intervalo: ${intervalMs}s`)
         handleMessage(`InitialSell: ${initialSell}`)
+        handleMessage(`Amount: ${amount}`)
         handleMessage(`Test mode: ${test}`);
       }
       if (buyOffer.efPrice < sellOffer.efPrice && !test) {
@@ -282,6 +283,8 @@ async function trade() {
     handleMessage(`O botStatus é: ${botStatus}`)
     handleMessage(`Multibot: ${multibot}`)
     handleMessage(`Intervalo: ${intervalMs}s`)
+    handleMessage(`InitialSell: ${initialSell}`)
+    handleMessage(`Amount: ${amount}`)
     handleMessage(`Test mode: ${test}`);
   }
 }
@@ -293,7 +296,7 @@ async function forceConfirm(side, oldPrice) {
       isQuote: false,
       op: side,
     });
-    
+
     // if side is buy then compare with sell price
     if (
       (side === "buy" && oldPrice * 1.1 >= Number(offer.efPrice)) ||
@@ -397,7 +400,7 @@ const increaseAmount = async () => {
     balances = await bc.balance();
     let { last } = await bc.ticker();
     const { BRL, BTC } = balances;
-    let amountBRL = (BRL * 0.95)/last
+    let amountBRL = (BRL * 0.95) / last
     let amountBTC = BTC * 0.95
     if (amountBTC >= 0.0001) {
       amount = amountBTC.toFixed(8);
