@@ -40,7 +40,7 @@ const keyboard = Markup.keyboard([
   ['🧾 Extrato', '🔍 BTC Price'], // Row1 with 2 buttons
   ['☸ Configs', '💶 Buy BTC'], // Row2 with 2 buttons
   ['🔛 Test Mode', '📖 Help'], // Row3 with 2 buttons
-  ['₿iscoint'] // Row3 with 2 buttons
+  ['₿itcoin'] // Row3 with 2 buttons
 ])
   .oneTime()
   .resize()
