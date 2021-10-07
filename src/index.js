@@ -38,9 +38,9 @@ let balances
 
 const keyboard = Markup.keyboard([
   ['🧾 Extrato', '🔍 BTC Price'], // Row1 with 2 buttons
-  ['☸ Configs', '💵 Increase Amount'], // Row2 with 2 buttons
-  ['🔛 Test Mode', '💶 Buy BTC'], // Row3 with 2 buttons
-  ['📖 Help', '₿'] // Row3 with 2 buttons
+  ['☸ Configs', '💶 Buy BTC'], // Row2 with 2 buttons
+  ['🔛 Test Mode', '📖 Help'], // Row3 with 2 buttons
+  ['₿'] // Row3 with 2 buttons
 ])
   .oneTime()
   .resize()
@@ -99,8 +99,9 @@ bot.hears('🔛 Test Mode', async (ctx) => {
 }
 );
 
-bot.hears('☸ Configs', (ctx) => {
-  ctx.replyWithMarkdown(`
+bot.hears('☸ Configs', async (ctx) => {
+  await increaseAmount()
+  await ctx.replyWithMarkdown(`
 *Configurações:*
 ⏱️ *Intervalo*: ${intervalMs}s
 ℹ️ *Modo teste*: ${test ? 'ativado' : 'desativado'}
