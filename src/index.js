@@ -401,12 +401,12 @@ const increaseAmount = async () => {
     let amountBRL = (BRL * 0.95)/last
     let amountBTC = BTC * 0.95
     if (amountBTC >= 0.0001) {
-      amount = amountBTC;
+      amount = amountBTC.toFixed(8);
       initialSell = true; // persistir variável no heroku e initial sell
       //bot.telegram.sendMessage(botchat, `💵 *Valor em operação*: ${amount}`, keyboard)
     } else {
       initialSell = false // persistir variável no heroku e initial buy
-      amount = amountBRL
+      amount = amountBRL.toFixed(8)
       //bot.telegram.sendMessage(botchat, `💵 *Valor em operação*: ${amount}`, keyboard)
     }
   } catch (error) {
