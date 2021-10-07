@@ -192,6 +192,7 @@ async function trade() {
         handleMessage(`O botStatus é: ${botStatus}`)
         handleMessage(`Multibot: ${multibot}`)
         handleMessage(`Intervalo: ${intervalMs}s`)
+        handleMessage(`InitialSell: ${initialSell}`)
         handleMessage(`Test mode: ${test}`);
       }
       if (buyOffer.efPrice < sellOffer.efPrice && !test) {
