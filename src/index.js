@@ -100,7 +100,6 @@ bot.hears('🔛 Test Mode', async (ctx) => {
 );
 
 bot.hears('☸ Configs', async (ctx) => {
-  await increaseAmount()
   await ctx.replyWithMarkdown(`
 *Configurações:*
 ⏱️ *Intervalo*: ${intervalMs}s
