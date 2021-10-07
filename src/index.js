@@ -105,7 +105,7 @@ bot.hears('☸ Configs', async (ctx) => {
 *Configurações:*
 ⏱️ *Intervalo*: ${intervalMs}s
 ℹ️ *Modo teste*: ${test ? 'ativado' : 'desativado'}
-💵 *Saldo em operação*: ${amount}
+💵 *Saldo em operação*: ${amount.toFixed(8)}
 ✔️ *Multibot*: ${multibot ? 'ativado' : 'desativado'}
 ✔️ *initialSell*: ${initialSell ? 'ativado' : 'desativado'}
     `, keyboard)
