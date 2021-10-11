@@ -55,7 +55,6 @@ bot.hears('📖 Help', async (ctx) => {
   *🔍 BTC Price:* Último preço do Bitcoin na corretora.\n
   *☸ Configs:* Configurações do Bot.\n
   *🔛 Test Mode:* Ativar/Desativar modo simulação.\n
-  *💵 Increase Amount:* Fixa o valor do 'saldo em operação' para 90% do BTC disponível.\n
   *₿:* Acessar a corretora.\n
       ============
       `, keyboard)
@@ -216,7 +215,7 @@ async function trade() {
                 )}%, cycles: ${tradeCycleCount}`
               );
               bot.telegram.sendMessage(botchat, `\u{1F911} Sucesso! Lucro: ${profit.toFixed(3)}%`, keyboard);
-              await increaseAmount();
+              //await increaseAmount();
             } catch (error) {
               handleError("Error on buy, retrying", error);
               await forceConfirm("buy", sellOffer.efPrice);
@@ -252,7 +251,7 @@ async function trade() {
                 )}%, cycles: ${tradeCycleCount}`
               );
               bot.telegram.sendMessage(botchat, `\u{1F911} Sucesso! Lucro: ${profit.toFixed(3)}%`, keyboard);
-              await increaseAmount();
+              //await increaseAmount();
             } catch (error) {
               handleError("Error on sell, retrying", error);
               await forceConfirm("sell", buyOffer.efPrice);
