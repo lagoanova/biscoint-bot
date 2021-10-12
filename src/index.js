@@ -161,6 +161,7 @@ const limiter = new Bottleneck({
 handleMessage("\u{1F911} Iniciando Trades!");
 
 let tradeCycleCount = 0;
+let minProfitPercent = 0.3
 
 async function trade() {
   if (multibot) {
@@ -194,7 +195,8 @@ async function trade() {
         handleMessage(`Amount: ${amount}`)
         handleMessage(`Test mode: ${test}`);
       }
-      if (buyOffer.efPrice < sellOffer.efPrice && !test) {
+      //if (buyOffer.efPrice < sellOffer.efPrice && !test) {
+      if (profit >= minProfitPercent && !test) {
         handleMessage(`\u{1F911} Sucesso! Lucro: ${profit.toFixed(3)}%`);
         //bot.telegram.sendMessage(botchat, `\u{1F911} Sucesso! Lucro: ${profit.toFixed(3)}%`, keyboard)
         await increaseAmount();
