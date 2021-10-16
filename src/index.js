@@ -350,6 +350,7 @@ const checkBalances = async () => {
 <b>Status</b>: ${!test ? `\u{1F51B} Robô operando.` : `\u{1F6D1} Modo simulação.`} 
 <b>Data inicial</b>: ${dataInicial}
 <b>Dias ativado</b>: ${days}
+<b>Depósito inicial</b>: ${amountInitial}
 <b>Valor em operação</b>: ${amount}
 <b>Saldo BRL:</b> ${BRL} 
 <b>Saldo BTC:</b> ${BTC} (R$ ${(priceBTC.last * BTC).toFixed(2)})
