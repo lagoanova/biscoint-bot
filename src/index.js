@@ -343,7 +343,8 @@ const checkBalances = async () => {
   const days = Math.ceil(diff / (1000 * 60 * 60 * 24)); // Divide o total pelo total de milisegundos correspondentes a 1 dia. (1000 milisegundos = 1 segundo).
 
   // Cálculo do lucro 
-  let realizedProfit = percent(amountInitial, BRL)
+  let profitBRLBTC = BRL + (priceBTC.last * BTC)
+  let realizedProfit = percent(amountInitial, profitBRLBTC)
 
   await bot.telegram.sendMessage(botchat,
     `\u{1F911} Balanço:
@@ -353,8 +354,8 @@ const checkBalances = async () => {
 <b>Depósito inicial</b>: R$ ${amountInitial.toFixed(2)}
 <b>Saldo BRL:</b> R$ ${BRL} 
 <b>Saldo BTC:</b> ${BTC} (R$ ${(priceBTC.last * BTC).toFixed(2)})
-<b>Valor em operação</b>: ${amount}
-<b>Lucro:</b> ${realizedProfit.toFixed(2)}% (R$ ${(BRL - amountInitial).toFixed(2)});
+<b>Operando com</b>: ${amount}
+<b>Lucro (BRL + BTC):</b> ${realizedProfit.toFixed(2)}% (R$ ${(profitBRLBTC - amountInitial).toFixed(2)});
 `, { parse_mode: "HTML" });
   await bot.telegram.sendMessage(botchat, "Extrato resumido. Para maiores detalhes, acesse a corretora Biscoint!", keyboard)
 
