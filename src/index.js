@@ -362,7 +362,7 @@ const checkBalances = async () => {
 
     handleMessage(`Balances:  BRL: ${BRL} - BTC: ${BTC} `);
   } catch (e) {
-    bot.telegram.sendMessage(botchat, 'Máximo de 12 requisições por minuto. Tente novamente em alguns instantes!')
+    bot.telegram.sendMessage(botchat, 'Máximo de 12 requisições por minuto. Tente novamente em alguns instantes!', keyboard)
   }
 };
 
