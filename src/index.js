@@ -351,9 +351,9 @@ const checkBalances = async () => {
 <b>Data inicial</b>: ${dataInicial}
 <b>Dias ativado</b>: ${days}
 <b>Depósito inicial</b>: R$ ${amountInitial.toFixed(2)}
-<b>Valor em operação</b>: ${amount}
-<b>Saldo BRL:</b> ${BRL} 
+<b>Saldo BRL:</b> R$ ${BRL} 
 <b>Saldo BTC:</b> ${BTC} (R$ ${(priceBTC.last * BTC).toFixed(2)})
+<b>Valor em operação</b>: ${amount}
 <b>Lucro:</b> ${realizedProfit.toFixed(2)}% (R$ ${(BRL - amountInitial).toFixed(2)});
 `, { parse_mode: "HTML" });
   await bot.telegram.sendMessage(botchat, "Extrato resumido. Para maiores detalhes, acesse a corretora Biscoint!", keyboard)
