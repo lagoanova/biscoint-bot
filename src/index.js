@@ -1,6 +1,6 @@
 import Biscoint from "biscoint-api-node";
 import Bottleneck from "bottleneck";
-import { handleMessage, handleError, percent } from "./utils";
+import { handleMessage, handleError, percent, percentProfit } from "./utils";
 //import config from "./config.js";
 import { Telegraf, Markup } from 'telegraf';
 import axios from 'axios';
@@ -8,7 +8,7 @@ import axios from 'axios';
 //let { amount, initialSell, intervalMs, test, differencelogger } = config;
 
 let {
-  apiKey, apiSecret, amount, initialSell, intervalMs, test,
+  apiKey, apiSecret, amount, amountInitial, initialSell, intervalMs, test,
   differencelogger, token, botchat, botId, host, port, multibot,
   dataInicial
 } = require("./env")
@@ -342,6 +342,9 @@ const checkBalances = async () => {
   const diff = Math.abs(now.getTime() - past.getTime()); // Subtrai uma data pela outra
   const days = Math.ceil(diff / (1000 * 60 * 60 * 24)); // Divide o total pelo total de milisegundos correspondentes a 1 dia. (1000 milisegundos = 1 segundo).
 
+  // Cálculo do lucro 
+  let realizedProfit = percent(amountInitial, BRL)
+
   await bot.telegram.sendMessage(botchat,
     `\u{1F911} Balanço:
 <b>Status</b>: ${!test ? `\u{1F51B} Robô operando.` : `\u{1F6D1} Modo simulação.`} 
@@ -350,6 +353,7 @@ const checkBalances = async () => {
 <b>Valor em operação</b>: ${amount}
 <b>Saldo BRL:</b> ${BRL} 
 <b>Saldo BTC:</b> ${BTC} (R$ ${(priceBTC.last * BTC).toFixed(2)})
+<b>Lucro:</b> ${realizedProfit.toFixed(2)}% (R$ ${(BRL - amountInitial).toFixed(2)});
 `, { parse_mode: "HTML" });
   await bot.telegram.sendMessage(botchat, "Extrato resumido. Para maiores detalhes, acesse a corretora Biscoint!", keyboard)
 

@@ -17,3 +17,7 @@ export function handleError(message, error, throwError = false) {
 export function percent(value1, value2) {
   return (Number(value2) / Number(value1) - 1) * 100;
 }
+
+export function percentProfit(value1, value2) {
+  return (Number(value2) / Number(value1)) * 100;
+}

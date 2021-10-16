@@ -7,6 +7,7 @@ module.exports = envalid.cleanEnv(process.env, {
     apiKey: envalid.str({ default: "" }),
     apiSecret: envalid.str({ default: "" }),
     amount: envalid.num({ default: "0.001" }),
+    amountInitial: envalid.num({ default: "300" }),
     initialSell: envalid.bool({ default: true }),
     intervalMs: envalid.num( { default: "" } ),
     test: envalid.bool({ default: false }),

@@ -34,6 +34,11 @@
       "required": true,
       "value": "0.001"
     },
+    "amountInitial": {
+      "description": "Valor do depósito inicial. Campo apenas informativo. Valor padrão: 50",
+      "required": false,
+      "value": "50"
+    },
     "initialSell": {
       "description": "Se o seu saldo estiver em Bitcoin, deixe o campo como true. Valor padrao: true",
       "required": true,
