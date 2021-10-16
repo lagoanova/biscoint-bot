@@ -343,7 +343,7 @@ const checkBalances = async () => {
   const days = Math.ceil(diff / (1000 * 60 * 60 * 24)); // Divide o total pelo total de milisegundos correspondentes a 1 dia. (1000 milisegundos = 1 segundo).
 
   // Cálculo do lucro 
-  let profitBRLBTC = BRL + (priceBTC.last * BTC)
+  let profitBRLBTC = Number(BRL + (priceBTC.last * BTC))
   let realizedProfit = percent(amountInitial, profitBRLBTC)
 
   await bot.telegram.sendMessage(botchat,
