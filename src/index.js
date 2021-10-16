@@ -321,33 +321,34 @@ async function forceConfirm(side, oldPrice) {
 }
 
 const checkBalances = async () => {
-  balances = await bc.balance();
-  const { BRL, BTC } = balances;
-  let priceBTC = await bc.ticker();
+  try {
+    balances = await bc.balance();
+    const { BRL, BTC } = balances;
+    let priceBTC = await bc.ticker();
 
-  // Pegando a data
-  let data = dataInicial
+    // Pegando a data
+    let data = dataInicial
 
-  // Precisamos quebrar a string para retornar cada parte
-  const dataSplit = data.split('/');
+    // Precisamos quebrar a string para retornar cada parte
+    const dataSplit = data.split('/');
 
-  const day = dataSplit[0]; // 30
-  const month = dataSplit[1]; // 03
-  const year = dataSplit[2]; // 2019
+    const day = dataSplit[0]; // 30
+    const month = dataSplit[1]; // 03
+    const year = dataSplit[2]; // 2019
 
-  // Agora podemos inicializar o objeto Date, lembrando que o mês começa em 0, então fazemos -1.
-  data = new Date(year, month - 1, day);
-  const now = new Date(); // Data de hoje
-  const past = new Date(data); // Outra data no passado
-  const diff = Math.abs(now.getTime() - past.getTime()); // Subtrai uma data pela outra
-  const days = Math.ceil(diff / (1000 * 60 * 60 * 24)); // Divide o total pelo total de milisegundos correspondentes a 1 dia. (1000 milisegundos = 1 segundo).
+    // Agora podemos inicializar o objeto Date, lembrando que o mês começa em 0, então fazemos -1.
+    data = new Date(year, month - 1, day);
+    const now = new Date(); // Data de hoje
+    const past = new Date(data); // Outra data no passado
+    const diff = Math.abs(now.getTime() - past.getTime()); // Subtrai uma data pela outra
+    const days = Math.ceil(diff / (1000 * 60 * 60 * 24)); // Divide o total pelo total de milisegundos correspondentes a 1 dia. (1000 milisegundos = 1 segundo).
 
-  // Cálculo do lucro 
-  let profitBRLBTC = Number(BRL) + ((Number(priceBTC.last * BTC)))
-  let realizedProfit = percent(amountInitial, profitBRLBTC)
+    // Cálculo do lucro 
+    let profitBRLBTC = Number(BRL) + ((Number(priceBTC.last * BTC)))
+    let realizedProfit = percent(amountInitial, profitBRLBTC)
 
-  await bot.telegram.sendMessage(botchat,
-    `\u{1F911} Balanço:
+    await bot.telegram.sendMessage(botchat,
+      `\u{1F911} Balanço:
 <b>Status</b>: ${!test ? `\u{1F51B} Robô operando.` : `\u{1F6D1} Modo simulação.`} 
 <b>Data inicial</b>: ${dataInicial}
 <b>Dias ativado</b>: ${days}
@@ -357,9 +358,12 @@ const checkBalances = async () => {
 <b>Operando com</b>: ${amount}
 <b>Lucro (BRL + BTC):</b> ${realizedProfit.toFixed(2)}% (R$ ${(profitBRLBTC - amountInitial).toFixed(2)});
 `, { parse_mode: "HTML" });
-  await bot.telegram.sendMessage(botchat, "Extrato resumido. Para maiores detalhes, acesse a corretora Biscoint!", keyboard)
+    await bot.telegram.sendMessage(botchat, "Extrato resumido. Para maiores detalhes, acesse a corretora Biscoint!", keyboard)
 
-  handleMessage(`Balances:  BRL: ${BRL} - BTC: ${BTC} `);
+    handleMessage(`Balances:  BRL: ${BRL} - BTC: ${BTC} `);
+  } catch (e) {
+    bot.telegram.sendMessage(botchat, 'Máximo de 12 requisições por minuto. Tente novamente em alguns instantes!')
+  }
 };
 
 
