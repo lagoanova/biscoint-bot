@@ -199,7 +199,7 @@ async function trade() {
       if (profit >= minProfitPercent && !test) {
         handleMessage(`\u{1F911} Sucesso! Lucro: ${profit.toFixed(3)}%`);
         //bot.telegram.sendMessage(botchat, `\u{1F911} Sucesso! Lucro: ${profit.toFixed(3)}%`, keyboard)
-        await increaseAmount();
+        //await increaseAmount();
         if (initialSell) {
           /* initial sell */
           try {
@@ -309,14 +309,15 @@ async function forceConfirm(side, oldPrice) {
     } else {
       //throw "Error on forceConfirm, price is much distant";
       bot.telegram.sendMessage(botchat, `
-      Erro ao Confirmar Ordem, o preço está muito distante.
-      Acesse a corretora e decida se irá vender o saldo e iniciar as operações do bot!`, keyboard)
+      Erro ao Confirmar Ordem, o preço está muito distante. Aguardando nova oportunidade!`, keyboard)
+      await increaseAmount(); // persistir variável no heroku
       // Mode test
       //test = true;
     }
   } catch (error) {
     handleError("Error on force confirm", error);
     bot.telegram.sendMessage(botchat, `Error on force confirm: ${error}`, keyboard)
+    await increaseAmount(); // persistir variável no heroku
   }
 }
 
