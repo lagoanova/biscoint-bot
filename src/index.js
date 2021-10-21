@@ -415,12 +415,12 @@ const increaseAmount = async () => {
     let amountBRL = (BRL * 0.9) / last // Fixa o amount em 95% do saldo disponível
     let amountBTC = BTC * 0.9
     if (amountBTC >= 0.0001) {
-      amount = amountBTC.toFixed(8);
+      amount = amountBTC.toFixed(5);
       initialSell = true; // persistir variável no heroku e initial sell
       //bot.telegram.sendMessage(botchat, `💵 *Valor em operação*: ${amount}`, keyboard)
     } else {
       initialSell = false // persistir variável no heroku e initial buy
-      amount = amountBRL.toFixed(8)
+      amount = amountBRL.toFixed(5)
       //bot.telegram.sendMessage(botchat, `💵 *Valor em operação*: ${amount}`, keyboard)
     }
   } catch (error) {
