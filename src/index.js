@@ -412,8 +412,8 @@ const increaseAmount = async () => {
     balances = await bc.balance();
     let { last } = await bc.ticker();
     const { BRL, BTC } = balances;
-    let amountBRL = (BRL * 0.95) / last // Fixa o amount em 95% do saldo disponível
-    let amountBTC = BTC * 0.95
+    let amountBRL = (BRL * 0.9) / last // Fixa o amount em 95% do saldo disponível
+    let amountBTC = BTC * 0.9
     if (amountBTC >= 0.0001) {
       amount = amountBTC.toFixed(8);
       initialSell = true; // persistir variável no heroku e initial sell
