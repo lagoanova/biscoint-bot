@@ -29,11 +29,6 @@
       "description": "API Secret Biscoint",
       "required": true
     },
-    "amount": {
-      "description": "Valor em Bitcoin que será usado para fazer arbitragem. Deixe um valor menor do que o saldo na corretora, pois o robô pode ficar vendido ou comprado em alguma operação.",
-      "required": true,
-      "value": "0.001"
-    },
     "amountInitial": {
       "description": "Valor do depósito inicial. Campo apenas informativo. Valor padrão: 50",
       "required": false,
