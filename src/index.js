@@ -40,7 +40,7 @@ const keyboard = Markup.keyboard([
   ['🧾 Extrato', '🔍 BTC Price'], // Row1 with 2 buttons
   ['☸ Configs', '💶 Buy BTC'], // Row2 with 2 buttons
   ['🔛 Test Mode', '📖 Help'], // Row3 with 2 buttons
-  ['₿itcoin'] // Row3 with 2 buttons
+  ['💶 Sell BTC', '₿itcoin'] // Row3 with 2 buttons
 ])
   .oneTime()
   .resize()
@@ -74,9 +74,23 @@ bot.hears('💶 Buy BTC', async (ctx) => {
 }
 );
 
+bot.hears('💶 Sell BTC', async (ctx) => {
+  balances = await bc.balance();
+  const { BTC } = balances;
+  ctx.replyWithMarkdown(`Para comprar Bitcoin digite /vender *valor*. Ex.: /vender *0.001*
+*Seu saldo atual em BTC*: ${BTC}`);
+}
+);
+
 bot.hears(/^\/comprar (.+)$/, async ctx => {
   let valor = ctx.match[1];
   buyBTC(valor)
+}
+)
+
+bot.hears(/^\/VENDR (.+)$/, async ctx => {
+  let valor = ctx.match[1];
+  sellBTC(valor)
 }
 )
 
@@ -381,6 +395,45 @@ async function buyBTC(valor) {
           try {
             await bc.confirmOffer({
               offerId: buyOffer.offerId,
+            });
+            bot.telegram.sendMessage(botchat, `Compra de ${valor} em BTC efetuada com sucesso!`);
+            resolve(true)
+          } catch (error) {
+            if (error.error === "Insufficient funds") {
+              bot.telegram.sendMessage(botchat, `Você não tem saldo suficiente em BRL!`, keyboard);
+            } else {
+              bot.telegram.sendMessage(botchat, `${error.error}. ${error.details}`);
+            }
+            reject(false)
+          }
+        }
+        else {
+          bot.telegram.sendMessage(botchat, "Valor de compra abaixo do limite mínimo de 50 reais", keyboard);
+          reject(false)
+        }
+      } catch (error) {
+        bot.telegram.sendMessage(botchat, `${error.error}. ${error.details}`, keyboard);
+        reject(false)
+      }
+    })();
+  }).catch(err => {
+    console.error(err)
+  })
+}
+
+async function sellBTC(valor) {
+  return new Promise((resolve, reject) => {
+    (async () => {
+      try {
+        if (valor >= 0.0001) {
+          let sellOffer = await bc.offer({
+            amount: valor,
+            isQuote: false,
+            op: "sell"
+          });
+          try {
+            await bc.confirmOffer({
+              offerId: sellOffer.offerId,
             });
             bot.telegram.sendMessage(botchat, `Compra de ${valor} em BTC efetuada com sucesso!`);
             resolve(true)
