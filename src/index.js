@@ -435,11 +435,11 @@ async function sellBTC(valor) {
             await bc.confirmOffer({
               offerId: sellOffer.offerId,
             });
-            bot.telegram.sendMessage(botchat, `Compra de ${valor} em BTC efetuada com sucesso!`);
+            bot.telegram.sendMessage(botchat, `venda de ${valor} em BTC efetuada com sucesso!`);
             resolve(true)
           } catch (error) {
             if (error.error === "Insufficient funds") {
-              bot.telegram.sendMessage(botchat, `Você não tem saldo suficiente em BRL!`, keyboard);
+              bot.telegram.sendMessage(botchat, `Você não tem saldo suficiente em BTC!`, keyboard);
             } else {
               bot.telegram.sendMessage(botchat, `${error.error}. ${error.details}`);
             }
@@ -447,7 +447,7 @@ async function sellBTC(valor) {
           }
         }
         else {
-          bot.telegram.sendMessage(botchat, "Valor de compra abaixo do limite mínimo de 50 reais", keyboard);
+          bot.telegram.sendMessage(botchat, "Valor de venda abaixo do limite mínimo de 0.0001 BTC", keyboard);
           reject(false)
         }
       } catch (error) {
