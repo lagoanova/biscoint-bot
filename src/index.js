@@ -77,7 +77,7 @@ bot.hears('💶 Buy BTC', async (ctx) => {
 bot.hears('💶 Sell BTC', async (ctx) => {
   balances = await bc.balance();
   const { BTC } = balances;
-  ctx.replyWithMarkdown(`Para comprar Bitcoin digite /vender *valor*. Ex.: /vender *0.001*
+  ctx.replyWithMarkdown(`Para vender Bitcoin digite /vender *valor*. Ex.: /vender *0.001*
 *Seu saldo atual em BTC*: ${BTC}`);
 }
 );
@@ -88,7 +88,7 @@ bot.hears(/^\/comprar (.+)$/, async ctx => {
 }
 )
 
-bot.hears(/^\/VENDR (.+)$/, async ctx => {
+bot.hears(/^\/vender (.+)$/, async ctx => {
   let valor = ctx.match[1];
   sellBTC(valor)
 }
