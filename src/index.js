@@ -175,7 +175,7 @@ const limiter = new Bottleneck({
 handleMessage("\u{1F911} Iniciando Trades!");
 
 let tradeCycleCount = 0;
-let minProfitPercent = 0.3
+let minProfitPercent = 0.09
 
 async function trade() {
   if (multibot) {
