@@ -117,6 +117,7 @@ bot.hears('☸ Configs', (ctx) => {
 *Configurações:*
 ⏱️ *Intervalo*: ${intervalMs}s
 ℹ️ *Modo teste*: ${test ? 'ativado' : 'desativado'}
+ℹ️ *minProfitPercent*: ${minProfitPercent}%
 💵 *Saldo em operação*: ${amount}
 ✔️ *Multibot*: ${multibot ? 'ativado' : 'desativado'}
 ✔️ *initialSell*: ${initialSell ? 'ativado' : 'desativado'}
