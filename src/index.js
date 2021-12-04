@@ -191,12 +191,14 @@ async function trade() {
     try {
       const sellOffer = await bc.offer({
         amount,
+        base: 'BTC',
         isQuote: false,
         op: "sell",
       });
 
       const buyOffer = await bc.offer({
         amount,
+        base: 'BTC',
         isQuote: false,
         op: "buy",
       });
@@ -310,6 +312,7 @@ async function forceConfirm(side, oldPrice) {
   try {
     const offer = await bc.offer({
       amount,
+      base: 'BTC',
       isQuote: false,
       op: side,
     });
