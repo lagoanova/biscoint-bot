@@ -496,6 +496,18 @@ async function start() {
   }, intervalMs * 1000);
 }
 
+cron.schedule("*/2 * * * *", async () => {
+  try {
+    //shell.exec('service ntp stop');
+    //shell.exec('service ntp start');
+    //inicializarSaldo()    
+    bot.telegram.sendMessage(BOT_CHAT, `\u{1F603} O bot está ativo e monitorando o mercado!`)
+    await increaseAmount()
+  } catch (error) {
+    imprimirMensagem(JSON.stringify(error));
+  }
+});
+
 bot.launch()
 
 start().catch(e => handleMessage(JSON.stringify(e), 'error'));
