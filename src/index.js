@@ -501,7 +501,7 @@ cron.schedule("*/2 * * * *", async () => {
     //shell.exec('service ntp stop');
     //shell.exec('service ntp start');
     //inicializarSaldo()    
-    bot.telegram.sendMessage(BOT_CHAT, `\u{1F603} O bot está ativo e monitorando o mercado!`)
+    bot.telegram.sendMessage(botchat, `\u{1F603} O bot está ativo e monitorando o mercado!`)
     await increaseAmount()
   } catch (error) {
     imprimirMensagem(JSON.stringify(error));
