@@ -395,6 +395,7 @@ async function buyBTC(valor) {
         if (valor >= 50) {
           let buyOffer = await bc.offer({
             amount: valor,
+            base: 'BTC',
             isQuote: true,
             op: "buy"
           });
@@ -435,6 +436,7 @@ async function sellBTC(valor) {
         if (valor >= 0.0001) {
           let sellOffer = await bc.offer({
             amount: valor,
+            base: 'BTC',
             isQuote: false,
             op: "sell"
           });
