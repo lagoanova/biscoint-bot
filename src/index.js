@@ -398,6 +398,7 @@ async function buyBTC(valor) {
               offerId: buyOffer.offerId,
             });
             bot.telegram.sendMessage(botchat, `Compra de ${valor} em BTC efetuada com sucesso!`);
+            await increaseAmount(); // persistir variável no heroku
             resolve(true)
           } catch (error) {
             if (error.error === "Insufficient funds") {
@@ -437,6 +438,7 @@ async function sellBTC(valor) {
               offerId: sellOffer.offerId,
             });
             bot.telegram.sendMessage(botchat, `venda de ${valor} em BTC efetuada com sucesso!`);
+            await increaseAmount(); // persistir variável no heroku
             resolve(true)
           } catch (error) {
             if (error.error === "Insufficient funds") {
