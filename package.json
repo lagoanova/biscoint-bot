@@ -16,12 +16,13 @@
     "dev": "nodemon -r esm ./src/index.js"
   },
   "dependencies": {
-    "biscoint-api-node": "^1.2.4",
+    "biscoint-api-node": "^1.4.2",
     "bottleneck": "^2.19.5",
+    "dotenv": "8.2.0",
+    "envalid": "7.0.0",
     "esm": "^3.2.25",
     "moment": "^2.24.0",
-    "telegraf": "^4.4.1",
-    "dotenv": "8.2.0",
-    "envalid": "7.0.0"
+    "node-cron": "^3.0.0",
+    "telegraf": "^4.4.1"
   }
 }
