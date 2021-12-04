@@ -371,7 +371,7 @@ const checkBalances = async () => {
 <b>Dias ativado</b>: ${days}
 <b>Depósito inicial</b>: R$ ${amountInitial.toFixed(2)}
 <b>Saldo BRL:</b> R$ ${BRL} 
-<b>Saldo ETH:</b> R$ ${ETH} 
+<b>Saldo ETH:</b> ${parseFloat(ETH).toFixed(8)} 
 <b>Saldo BTC:</b> ${BTC} (R$ ${(priceBTC.last * BTC).toFixed(2)})
 <b>Operando com</b>: ${amount}
 <b>Lucro (BRL + BTC):</b> ${realizedProfit.toFixed(2)}% (R$ ${(profitBRLBTC - amountInitial).toFixed(2)});
