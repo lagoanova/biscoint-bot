@@ -2,6 +2,7 @@ import Biscoint from "biscoint-api-node";
 import Bottleneck from "bottleneck";
 import { handleMessage, handleError, percent, percentProfit } from "./utils";
 //import config from "./config.js";
+const cron = require('node-cron');
 import { Telegraf, Markup } from 'telegraf';
 import axios from 'axios';
 
