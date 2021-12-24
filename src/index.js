@@ -482,9 +482,6 @@ const increaseAmount = async () => {
       amount = amountBTC.toFixed(5);
       initialSell = true; // persistir variável no heroku e initial sell
       //bot.telegram.sendMessage(botchat, `💵 *Valor em operação*: ${amount}`, keyboard)
-    } else if (amountETH >= 0.005 && amountETH > amountBRL) {
-      amount = amountETH.toFixed(5);
-      initialSell = true; // persistir variável no heroku e initial sell
     } else {
       initialSell = false // persistir variável no heroku e initial buy
       amount = amountBRL.toFixed(5)
@@ -492,7 +489,10 @@ const increaseAmount = async () => {
     }
   } catch (error) {
     handleMessage(JSON.stringify(error));
-    bot.telegram.sendMessage(botchat, JSON.stringify(error))
+    if (error.error === "Forbidden") {
+      handleMessage(JSON.stringify(error), 'error')
+      //bot.telegram.sendMessage(botchat, JSON.stringify(error)) 
+    }
   }
 }
 
